@@ -1,428 +1,421 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>LATHESH S M — Responsive Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg1:#071029; --bg2:#0b1228;
-    --accent1:#64d3ff; --accent2:#b56bff; --accent3:#00ffa3;
-    --fg:#e8f1ff; --muted:#9fb0d0; --card-bg: rgba(255,255,255,0.02);
-
-    /* brand colors */
-    --gh:#ffffff;   /* GitHub */
-    --gm:#D44638;   /* Gmail */
-    --wa:#25D366;   /* WhatsApp */
-    --li:#0077B5;   /* LinkedIn */
-
-    /* border colors */
-    --border-card: linear-gradient(90deg, rgba(100,211,255,0.32), rgba(181,107,255,0.28));
-    --border-panel: rgba(181,107,255,0.22);
-    --border-pill: rgba(100,211,255,0.12);
-    --border-icon: rgba(100,211,255,0.12);
-    --border-overlay: rgba(181,107,255,0.16);
-    --border-hamburger: rgba(100,211,255,0.12);
-    --border-topmenu: rgba(100,211,255,0.12);
-  }
-
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:var(--fg);-webkit-font-smoothing:antialiased}
-  body{
-    min-height:100vh;
-    background:
-      radial-gradient(600px 400px at 10% 10%, rgba(100,211,255,0.06), transparent 20%),
-      radial-gradient(600px 400px at 90% 90%, rgba(181,107,255,0.05), transparent 18%),
-      linear-gradient(180deg,var(--bg1),var(--bg2));
-    display:flex;align-items:center;justify-content:center;padding:28px;overflow-x:hidden;
-  }
-
-  /* decorative plate */
-  .plate{
-    position:absolute;
-    width:820px; max-width:95vw;
-    height:520px; border-radius:28px;
-    background: linear-gradient(135deg, rgba(100,211,255,0.06), rgba(181,107,255,0.04));
-    filter: blur(36px);
-    z-index:1; transform: translateY(18px);
-    box-shadow: 0 40px 140px rgba(2,6,23,0.6);
-    pointer-events:none;
-  }
-  @media (max-width:720px){ .plate{ height:480px; transform: translateY(36px) scale(.98) } }
-
-  /* stage/card */
-  .stage{
-    width:760px; max-width:96vw; border-radius:18px; padding:36px; position:relative; z-index:10;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:2px solid transparent;
-    box-shadow: 0 30px 80px rgba(2,6,23,0.6);
-    display:flex;flex-direction:column;align-items:center; gap:18px;
-    transition: transform .36s cubic-bezier(.2,.9,.2,1), opacity .6s ease;
-  }
-
-  /* when menu is open on small screen, push the card down (no overlap) */
-  @media (max-width:720px){
-    .stage.pushed { transform: translateY(150px); } /* adjust Y to match height of overlay/menu */
-  }
-
-  /* gradient visible border around stage (colorful) */
-  .stage::before{
-    content:''; position:absolute; inset:-2px; border-radius:20px; z-index:-1;
-    background: var(--border-card);
-    filter: blur(6px); opacity:0.95;
-  }
-  .stage::after{
-    content:''; position:absolute; inset:0; border-radius:18px; z-index:-1;
-    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.02));
-    pointer-events:none;
-  }
-
-  /* fixed menu outside card (top-right) */
-  .fixed-menu{
-    position:fixed; top:18px; right:18px; display:flex; gap:10px; align-items:center; z-index:60;
-  }
-  .menu-btn{
-    background:transparent;padding:8px 12px;border-radius:10px;color:var(--fg);cursor:pointer;
-    font-weight:700; font-family:Poppins; transition:transform .18s, box-shadow .18s, background .18s;
-    border:2px solid var(--border-topmenu); /* colored border for top menu */
-  }
-  .menu-btn:hover{transform:translateY(-4px); box-shadow:0 16px 36px rgba(2,6,23,0.45); background: linear-gradient(90deg,var(--accent1), rgba(181,107,255,0.06));}
-  .menu-btn[aria-pressed="true"]{background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:#061022; box-shadow:0 20px 48px rgba(100,211,255,0.12);}
-
-  /* hamburger */
-  .hamburger{
-    display:none; width:46px;height:46px;border-radius:10px;background:rgba(255,255,255,0.01);
-    align-items:center; justify-content:center; cursor:pointer; border:2px solid var(--border-hamburger);
-  }
-  .hamburger .bar{ width:20px; height:2px; background:var(--fg); display:block; position:relative }
-  .hamburger .bar::before, .hamburger .bar::after{ content:''; position:absolute; left:0; right:0; height:2px; background:var(--fg); }
-  .hamburger .bar::before{ top:-6px } .hamburger .bar::after{ top:6px }
-
-  /* portrait */
-  .portrait{ position:relative; width:220px; height:220px; border-radius:34px; display:grid; place-items:center; overflow:visible; }
-  .ring{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:240px; height:240px; border-radius:20px;
-         filter:blur(22px); opacity:0.55; background: conic-gradient(from 0deg, var(--accent1), var(--accent2), var(--accent3)); mix-blend-mode:screen;}
-  /* keep profile photo border unchanged (user requested) */
-  .frame{ width:200px; height:200px; border-radius:28px; overflow:hidden; border:2px solid rgba(255,255,255,0.06); backdrop-filter: blur(6px); }
-  .frame img{ width:100%; height:100%; object-fit:cover; display:block; transform:scale(1.02); transition:transform .85s cubic-bezier(.2,.9,.2,1);
-              animation: hueCycle 5s linear infinite; will-change: filter; }
-  .portrait:hover .frame img{ transform:scale(1.08) rotate(-1.2deg); }
-
-  @keyframes hueCycle { 0%{filter:hue-rotate(0deg)} 100%{filter:hue-rotate(360deg)} }
-
-  .initials{ position:absolute; right:-6px; bottom:-6px; background:linear-gradient(90deg,var(--accent1),var(--accent2)); padding:8px 10px; border-radius:12px;
-             font-weight:800; color:#061022; font-family:Poppins; box-shadow:0 6px 18px rgba(0,0,0,0.45) }
-
-  .name{ font-family:Poppins; font-weight:800; font-size:26px; letter-spacing:0.2px; text-align:center }
-  .sub{ color:var(--muted); font-weight:600; text-align:center; margin-top:6px }
-
-  /* actions - icons remain under photo on all sizes; icon buttons get colored borders */
-  .actions{ display:flex; gap:14px; margin-top:6px; justify-content:center; }
-  .icon-btn{
-    display:inline-grid; place-items:center; width:56px; height:56px; border-radius:12px; background: rgba(255,255,255,0.02);
-    cursor:pointer; transition:transform .18s, box-shadow .18s; position:relative; overflow:hidden; color:var(--fg);
-    border:2px solid var(--border-icon); /* colored border for icons */
-  }
-  .icon-btn:hover{ transform:translateY(-6px); box-shadow:0 22px 44px rgba(2,6,23,0.5) }
-  .icon{ width:22px; height:22px; display:block; color:currentColor }
-  .icon-btn:focus{ outline:3px solid rgba(100,211,255,0.14) }
-
-  /* brand color classes */
-  .gh { color:var(--gh); }   /* GitHub */
-  .gm { color:var(--gm); }   /* Gmail */
-  .wa { color:var(--wa); }   /* WhatsApp */
-  .li { color:var(--li); }   /* LinkedIn */
-
-  /* icon hover fills */
-  .icon-btn.gh:hover{ color:#061022; background: linear-gradient(90deg,#f7fbff, #d9f7ff); }
-  .icon-btn.gm:hover{ color:#fff; background: linear-gradient(90deg, #ffd0cc, var(--gm)); }
-  .icon-btn.wa:hover{ color:#fff; background: linear-gradient(90deg, #c6fbd8, var(--wa)); }
-  .icon-btn.li:hover{ color:#fff; background: linear-gradient(90deg, #bfe3fb, var(--li)); }
-
-  .ripple{ position:absolute; border-radius:50%; transform:scale(0); animation:ripple .6s linear; opacity:0.35; background: linear-gradient(90deg,var(--accent1),var(--accent2)); pointer-events:none; }
-  @keyframes ripple{ to{ transform:scale(8); opacity:0 } }
-
-  /* panel: colored border + rounded corners */
-  .panel{
-    width:100%; max-width:680px; min-height:96px; border-radius:14px; padding:16px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.02));
-    border:2px solid var(--border-panel); color:var(--muted);
-    transform-origin:top center; transition: transform .28s cubic-bezier(.2,.9,.2,1), opacity .22s; opacity:0; transform:translateY(-8px) scale(.995); display:none;
-    box-shadow: 0 12px 36px rgba(0,0,0,0.45);
-  }
-  .panel.is-open{ display:block; opacity:1; transform:translateY(0) scale(1); }
-  .panel h3{ margin:0 0 8px 0; color:var(--fg); font-family:Poppins; font-weight:700 }
-  .skills-list{ display:flex; gap:10px; flex-wrap:wrap }
-  .skill-pill{
-    padding:8px 12px; border-radius:999px; background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:2px solid var(--border-pill); font-weight:700; color:var(--fg); /* colored border for skill pills */
-  }
-
-  /* Download resume button - do not change its border (kept as originally styled) */
-  .download{
-    display:inline-flex; align-items:center; gap:10px; padding:10px 16px; border-radius:12px;
-    background:linear-gradient(90deg,var(--accent1),var(--accent2));
-    color:#061022; font-weight:800; border:none; cursor:pointer; font-family:Poppins; transition:transform .14s, box-shadow .14s;
-  }
-  .download:hover{ transform:translateY(-6px); box-shadow:0 28px 60px rgba(100,211,255,0.12) }
-
-  /* entrance */
-  .stage{ opacity:0; }
-  .stage.visible{ opacity:1 }
-
-  /* mobile overlay - colored border */
-  .mobile-overlay{
-    position:fixed; right:12px; top:64px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    padding:12px; border-radius:12px; box-shadow:0 16px 40px rgba(2,6,23,0.6); display:none; z-index:80;
-    border:2px solid var(--border-overlay); /* colored border for overlay */
-    width:160px;
-  }
-  .mobile-overlay.open{ display:flex; flex-direction:column; gap:10px; align-items:center }
-
-  /* footer (fixed bottom) */
-  .page-footer{ position:fixed; left:0; right:0; bottom:12px; display:flex; align-items:center; justify-content:center; pointer-events:none; z-index:200; }
-  .page-footer .text{ color:var(--muted); font-size:13px; pointer-events:auto; padding:6px 10px; border-radius:8px; background:rgba(0,0,0,0.12) }
-
-  /* responsive */
-  @media (max-width:720px){
-    .stage{ width:92vw; padding:22px; gap:14px }
-    .fixed-menu{ gap:8px }
-    .fixed-menu .menu-btn{ display:none } /* hide desktop menu buttons on mobile */
-    .hamburger{ display:flex }
-    .mobile-overlay .menu-btn{ display:inline-flex }
-    .mobile-overlay{ right:12px; top:64px }
-    /* ensure overlay doesn't cover footer; it stays above stage and below footer naturally */
-  }
-
-  @media (min-width:721px){
-    .hamburger{ display:none }
-    .mobile-overlay{ display:none !important }
-    .fixed-menu{ display:flex }
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio — Your Name</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent: #0f172a;
+      --muted: #6b7280;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --glass: rgba(255,255,255,0.6);
+      --maxw: 1100px;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin:0;
+      background: linear-gradient(180deg,#eef2ff 0%, #f8fafc 100%);
+      color:var(--accent);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .container{
+      max-width:var(--maxw);
+      margin:28px auto;
+      padding:20px;
+    }
+    header{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:20px;
+    }
+    .avatar{
+      width:110px;height:110px;border-radius:14px;background:linear-gradient(135deg,#e0e7ff,#fff);
+      display:flex;align-items:center;justify-content:center;font-weight:700;font-size:28px;color:var(--accent);
+      box-shadow:0 6px 18px rgba(15,23,42,0.08);
+      flex-shrink:0;
+    }
+    .hero{
+      flex:1;
+    }
+    h1{font-size:22px;margin:0 0 6px}
+    .sub{color:var(--muted);margin:0}
+    .controls{display:flex;gap:10px;margin-left:auto}
+    button{
+      background:#111827;color:#fff;border:0;padding:8px 12px;border-radius:10px;font-weight:600;cursor:pointer;
+    }
+    button.ghost{background:transparent;color:var(--accent);border:1px solid rgba(15,23,42,0.06)}
+    main{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .card{
+      background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.04);
+    }
+    .section{margin-bottom:16px}
+    .section h2{font-size:16px;margin:0 0 10px}
+    .skills-list{display:flex;flex-wrap:wrap;gap:8px}
+    .skill{background:var(--bg);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted)}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .project{border-left:3px solid #e6eefc;padding-left:10px;margin-bottom:8px}
+    a.resume-link{display:inline-block;margin-top:8px;text-decoration:none;padding:8px 10px;border-radius:8px;background:#eef2ff;color:#0f172a;font-weight:600}
+    form input, form textarea, .editable-field{
+      width:100%;padding:8px;border-radius:8px;border:1px solid #e6e9ef;background:transparent;font-size:14px;
+    }
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+    /* responsive */
+    @media (max-width:880px){
+      main{grid-template-columns:1fr}
+      .controls{margin-top:10px}
+    }
+    .note{font-size:13px;color:var(--muted)}
+  </style>
 </head>
 <body>
+  <div class="container">
+    <header>
+      <div class="avatar" id="avatar">LS</div>
+      <div class="hero">
+        <h1 id="name" class="editable-field" contenteditable="false">LATHESH S M</h1>
+        <p id="tagline" class="sub editable-field" contenteditable="false">4MC24CS410 — BE CSE — Web Developer in progress</p>
+        <p class="note">Click <strong>Edit</strong> to change these details (saved locally in your browser).</p>
+      </div>
+      <div class="controls">
+        <button id="editBtn">Edit</button>
+        <button id="saveBtn" class="ghost">Save</button>
+        <button id="resetBtn" class="ghost">Reset</button>
+      </div>
+    </header>
 
-<div class="plate" aria-hidden="true"></div>
+    <main>
+      <!-- Left column: main content -->
+      <div>
+        <!-- Profile -->
+        <section class="card section" id="profileCard">
+          <h2>Profile</h2>
+          <p contenteditable="false" id="profileText" class="editable-field">Student at Malnad College of Engineering. Interested in web development, full-stack, and cloud technologies. Email: latheshsmp1@gmail.com</p>
+        </section>
 
-<main class="stage" id="stage">
+        <!-- Skills -->
+        <section class="card section" id="skillsCard">
+          <h2>Skills</h2>
+          <div class="skills-list" id="skillsList">
+            <span class="skill editable-field" contenteditable="false">HTML</span>
+            <span class="skill editable-field" contenteditable="false">CSS</span>
+            <span class="skill editable-field" contenteditable="false">JavaScript</span>
+            <span class="skill editable-field" contenteditable="false">C</span>
+            <span class="skill editable-field" contenteditable="false">Git</span>
+          </div>
+          <p class="note">Add or remove skill chips while in Edit mode. After Save, data persists in this browser.</p>
+        </section>
 
-  <!-- portrait -->
-  <div class="portrait" aria-hidden="false">
-    <div class="ring" aria-hidden="true"></div>
-    <div class="frame" tabindex="0" role="img" aria-label="Profile photo">
-      <img id="photo" src="https://raw.githubusercontent.com/latheshsm410/Latheshsm410/refs/heads/main/mypic.jpg" alt="Profile photo of Lathesh">
-    </div>
-    <div class="initials">LS</div>
+        <!-- Education -->
+        <section class="card section" id="educationCard">
+          <h2>Education</h2>
+          <div class="project">
+            <strong id="eduDegree" contenteditable="false">BE Computer Science & Engineering — Malnad College of Engineering</strong>
+            <div class="note" id="eduYear" contenteditable="false">2022 — Present</div>
+            <div id="eduMore" contenteditable="false" style="margin-top:8px">Relevant coursework: Web Programming, Data Structures, DBMS.</div>
+          </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="card section" id="projectsCard">
+          <h2>Projects</h2>
+          <div id="projectsList">
+            <div class="project">
+              <strong contenteditable="false">Personal Portfolio Website</strong>
+              <div class="note" contenteditable="false">A portfolio built with HTML, CSS, JS. Hosted on GitHub Pages.</div>
+            </div>
+            <div class="project">
+              <strong contenteditable="false">Adler-32 Checksum Visualizer</strong>
+              <div class="note" contenteditable="false">College mini project to explain checksum algorithms step-by-step.</div>
+            </div>
+          </div>
+          <p class="note">You can add more project blocks in Edit mode.</p>
+        </section>
+
+        <!-- Achievements & Certifications -->
+        <section class="card section" id="achievementsCard">
+          <h2>Achievements & Certifications</h2>
+          <div id="achList">
+            <div class="project" contenteditable="false">No certifications yet — add them here.</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right column: sidebar -->
+      <aside>
+        <div class="card section">
+          <h2>Contact & Resume</h2>
+          <div>
+            <label for="email">Email (public)</label>
+            <div id="publicEmail" class="note editable-field" contenteditable="false">latheshsmp1@gmail.com</div>
+
+            <p style="margin-top:10px"><a id="resumeLink" class="resume-link" href="#" target="_blank" rel="noreferrer">Download Resume</a></p>
+            <p class="note">Tip: upload your resume to your GitHub repo and paste the raw GitHub Pages link here in Edit mode.</p>
+          </div>
+        </div>
+
+        <div class="card section">
+          <h2>Contact Form</h2>
+          <form id="contactForm" onsubmit="return false;">
+            <label for="cname">Name</label>
+            <input id="cname" type="text" placeholder="Your name" required>
+
+            <label for="cusn" style="margin-top:8px">USN</label>
+            <!-- Sample USN pattern (VTU style) - adjust if needed -->
+            <input id="cusn" type="text" placeholder="e.g. 4MC24CS410" pattern="^[0-9A-Za-z-]{4,16}$" title="Enter a valid USN (alphanumeric)" required>
+
+            <label for="cemail" style="margin-top:8px">Email</label>
+            <input id="cemail" type="email" placeholder="your.email@example.com" required>
+
+            <label for="cmsg" style="margin-top:8px">Message</label>
+            <textarea id="cmsg" rows="4" placeholder="Write a short message" required></textarea>
+
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <button id="sendBtn" type="submit">Send</button>
+              <button id="clearContact" type="button" class="ghost">Clear</button>
+            </div>
+            <p id="contactMsg" class="note" style="margin-top:8px"></p>
+          </form>
+        </div>
+
+        <div class="card section">
+          <h2>Quick Info</h2>
+          <p class="note">Course: Web Programming Laboratory (22CS505)</p>
+          <p class="note">Faculty: Mr. Ravi Kumar D</p>
+          <p class="note">Repo: Create a public GitHub repo and host with GitHub Pages.</p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <div class="note">This is a local editable template — changes are saved in your browser's localStorage.</div>
+    </footer>
   </div>
 
-  <div style="text-align:center;">
-    <div class="name">LATHESH S M</div>
-    <div class="sub">Full-Stack Developer • React • Node.js • IoT</div>
-  </div>
+  <script>
+    // Keys used in localStorage
+    const STORAGE_KEY = 'portfolio_v1';
 
-  <!-- action icons (always under the photo) -->
-  <div class="actions" role="navigation" aria-label="Contact and links">
-    <button class="icon-btn gh" id="btnGit" aria-label="Open GitHub (opens new tab)" title="GitHub">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.16 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.61-3.37-1.2-3.37-1.2-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.6.07-.6 1 .07 1.53 1.04 1.53 1.04.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.93 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.115 2.5.34 1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.10 2.65.64.7 1.02 1.59 1.02 2.68 0 3.83-2.34 4.67-4.57 4.92.36.31.68.92.68 1.86 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z" stroke-width="0.4"/></svg>
-    </button>
+    // Elements
+    const editBtn = document.getElementById('editBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const editableEls = document.querySelectorAll('.editable-field');
+    const resumeLink = document.getElementById('resumeLink');
 
-    <button class="icon-btn gm" id="btnEmail" aria-label="Send email" title="Email">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 7.5v9A2.5 2.5 0 0 0 5.5 19h13A2.5 2.5 0 0 0 21 16.5v-9"/><path d="M21 7.5L12 13 3 7.5"/></svg>
-    </button>
+    // Contact form elements
+    const contactForm = document.getElementById('contactForm');
+    const sendBtn = document.getElementById('sendBtn');
+    const clearContact = document.getElementById('clearContact');
+    const contactMsg = document.getElementById('contactMsg');
 
-    <button class="icon-btn wa" id="btnWhats" aria-label="Open WhatsApp chat" title="WhatsApp">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.5a8.5 8.5 0 1 1-1.6-4.9L21 21l-4.9-1.6A8.5 8.5 0 0 1 21 12.5z"/><path d="M17.5 15.5c-.2-.1-1.2-.6-1.4-.6s-.4 0-.6.6-.7.6-1 .6a5 5 0 0 1-1.8-.6c-.8-.6-1.3-1.7-1.4-1.8-.1-.2 0-.5 0-.7s-.2-.4-.5-.7c-.3-.4-.3-.7 0-.9s.6-.3.9-.3.6 0 .8.2.2.3.4.3.6-.1 1-.1c.5 0 .9.1 1.3.3.5.3.8.7 1 1.1.2.4.2.8 0 1.1-.1.2-.3.4-.5.4"/></svg>
-    </button>
-
-    <button class="icon-btn li" id="btnLinked" aria-label="Open LinkedIn (opens new tab)" title="LinkedIn">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-12h4v2"/></svg>
-    </button>
-  </div>
-
-  <!-- About / Skills panel -->
-  <section id="panel" class="panel" aria-live="polite"></section>
-
-  <!-- download CTA -->
-  <div style="margin-top:6px; display:flex; flex-direction:column; align-items:center; gap:8px;">
-    <button class="download" id="downloadBtn" aria-label="Download resume">⬇ Download Resume</button>
-  </div>
-</main>
-
-<!-- fixed menu (desktop) and hamburger (mobile) at top-right outside the card -->
-<div class="fixed-menu" id="fixedMenu" aria-hidden="false">
-  <button class="menu-btn" id="aboutDesktop">About</button>
-  <button class="menu-btn" id="skillsDesktop">Skills</button>
-
-  <!-- hamburger (only visible on small screens) -->
-  <button class="hamburger" id="hamburger" aria-expanded="false" aria-label="Open menu">
-    <span class="bar" aria-hidden="true"></span>
-  </button>
-</div>
-
-<!-- mobile overlay that shows ONLY menu items (About + Skills) when hamburger toggled -->
-<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
-  <div style="display:flex; gap:8px; flex-direction:column; width:100%; align-items:stretch;">
-    <button class="menu-btn" id="mAbout">About</button>
-    <button class="menu-btn" id="mSkills">Skills</button>
-  </div>
-</div>
-
-<!-- fixed footer -->
-<div class="page-footer" aria-hidden="false">
-  <div class="text">© <span id="year"></span> LATHESH S M</div>
-</div>
-
-<script>
-  // CONFIG - replace with real details if you want
-  const GITHUB_URL = 'https://github.com/latheshsm';
-  const EMAIL_ADDR = 'latheshsm@email.com';
-  const WHATSAPP_NUMBER = '91XXXXXXXXX';
-  const LINKEDIN_URL = 'https://www.linkedin.com/in/yourprofile';
-
-  // set year
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Panel logic (About/Skills inline)
-  const aboutDesktop = document.getElementById('aboutDesktop');
-  const skillsDesktop = document.getElementById('skillsDesktop');
-  const panel = document.getElementById('panel');
-
-  function openPanel(type){
-    if(aboutDesktop) aboutDesktop.setAttribute('aria-pressed', type === 'about' ? 'true' : 'false');
-    if(skillsDesktop) skillsDesktop.setAttribute('aria-pressed', type === 'skills' ? 'true' : 'false');
-
-    if(type === 'about'){
-      panel.innerHTML = '<h3>About</h3><div>I build delightful, accessible web apps with a focus on performance and clean architecture. I enjoy solving problems and shipping features end-to-end.</div>';
-    } else if(type === 'skills'){
-      panel.innerHTML = '<h3>Skills</h3><div class="skills-list"><span class="skill-pill">JavaScript</span><span class="skill-pill">React</span><span class="skill-pill">Node.js</span><span class="skill-pill">MongoDB</span><span class="skill-pill">HTML & CSS</span></div>';
-    } else {
-      panel.innerHTML = '';
+    // Toggle edit mode
+    let editMode = false;
+    function setEditMode(on){
+      editMode = !!on;
+      editableEls.forEach(el=>{
+        el.contentEditable = editMode ? "true" : "false";
+        if(editMode) el.classList.add('editing'); else el.classList.remove('editing');
+      });
+      // Make skills editable inline
+      document.querySelectorAll('.skill').forEach(s=>{
+        s.contentEditable = editMode ? "true" : "false";
+      });
+      editBtn.textContent = editMode ? 'Editing...' : 'Edit';
+      saveBtn.style.display = editMode ? 'inline-block' : 'none';
     }
-    if(type) panel.classList.add('is-open'); else panel.classList.remove('is-open');
-  }
+    setEditMode(false);
 
-  aboutDesktop && aboutDesktop.addEventListener('click', ()=> {
-    const cur = aboutDesktop.getAttribute('aria-pressed') === 'true';
-    openPanel(cur ? null : 'about');
-  });
-  skillsDesktop && skillsDesktop.addEventListener('click', ()=> {
-    const cur = skillsDesktop.getAttribute('aria-pressed') === 'true';
-    openPanel(cur ? null : 'skills');
-  });
+    editBtn.addEventListener('click', ()=> setEditMode(true));
+    saveBtn.addEventListener('click', saveToLocalStorage);
+    resetBtn.addEventListener('click', ()=>{
+      if(confirm('Reset saved data and reload template?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      }
+    });
 
-  // mobile menu (hamburger only shows About & Skills)
-  const hamburger = document.getElementById('hamburger');
-  const mobileOverlay = document.getElementById('mobileOverlay');
-  const stage = document.getElementById('stage');
-  let overlayOpen = false;
+    // Save current editable content to localStorage
+    function saveToLocalStorage(){
+      const data = {};
+      // Basic fields
+      data.name = document.getElementById('name').innerText.trim();
+      data.tagline = document.getElementById('tagline').innerText.trim();
+      data.avatar = document.getElementById('avatar').innerText.trim();
+      data.profileText = document.getElementById('profileText').innerText.trim();
 
-  hamburger && hamburger.addEventListener('click', ()=>{
-    overlayOpen = !overlayOpen;
-    hamburger.setAttribute('aria-expanded', overlayOpen ? 'true' : 'false');
-    mobileOverlay.classList.toggle('open', overlayOpen);
+      // skills: collect .skill texts
+      data.skills = Array.from(document.querySelectorAll('.skill')).map(s=>s.innerText.trim()).filter(Boolean);
 
-    // PUSH or UNPUSH the stage on small screens so overlay does not overlap the card
-    // Only apply push when viewport is small
-    if (window.innerWidth <= 720) {
-      if (overlayOpen) {
-        stage.classList.add('pushed');
-      } else {
-        stage.classList.remove('pushed');
+      // education & projects
+      data.eduDegree = document.getElementById('eduDegree').innerText.trim();
+      data.eduYear = document.getElementById('eduYear').innerText.trim();
+      data.eduMore = document.getElementById('eduMore').innerText.trim();
+
+      // projects & achievements
+      data.projects = Array.from(document.querySelectorAll('#projectsList .project')).map(p => {
+        const title = p.querySelector('strong') ? p.querySelector('strong').innerText.trim() : '';
+        const note = p.querySelector('.note') ? p.querySelector('.note').innerText.trim() : '';
+        return { title, note };
+      });
+      data.ach = Array.from(document.querySelectorAll('#achList .project')).map(p => p.innerText.trim());
+
+      // contact & resume
+      data.publicEmail = document.getElementById('publicEmail').innerText.trim();
+      data.resumeHref = resumeLink.href;
+
+      // store
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      setEditMode(false);
+      alert('Saved locally in your browser (localStorage). Remember to push updates to GitHub later.');
+    }
+
+    // Load from localStorage if exists
+    function loadFromLocalStorage(){
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return;
+      try{
+        const data = JSON.parse(raw);
+        if(data.name) document.getElementById('name').innerText = data.name;
+        if(data.tagline) document.getElementById('tagline').innerText = data.tagline;
+        if(data.avatar) document.getElementById('avatar').innerText = data.avatar.substring(0,2).toUpperCase();
+        if(data.profileText) document.getElementById('profileText').innerText = data.profileText;
+        if(Array.isArray(data.skills) && data.skills.length){
+          const skillsList = document.getElementById('skillsList');
+          skillsList.innerHTML = '';
+          data.skills.forEach(s=>{
+            const span = document.createElement('span');
+            span.className = 'skill';
+            span.contentEditable = 'false';
+            span.innerText = s;
+            skillsList.appendChild(span);
+          });
+        }
+        if(data.eduDegree) document.getElementById('eduDegree').innerText = data.eduDegree;
+        if(data.eduYear) document.getElementById('eduYear').innerText = data.eduYear;
+        if(data.eduMore) document.getElementById('eduMore').innerText = data.eduMore;
+
+        if(Array.isArray(data.projects) && data.projects.length){
+          const projectsList = document.getElementById('projectsList');
+          projectsList.innerHTML = '';
+          data.projects.forEach(p=>{
+            const wrapper = document.createElement('div'); wrapper.className = 'project';
+            wrapper.innerHTML = '<strong contenteditable="false">' + (p.title||'Untitled') + '</strong>' +
+                                '<div class="note" contenteditable="false">' + (p.note||'') + '</div>';
+            projectsList.appendChild(wrapper);
+          });
+        }
+
+        if(Array.isArray(data.ach) && data.ach.length){
+          const achList = document.getElementById('achList');
+          achList.innerHTML = '';
+          data.ach.forEach(a=>{
+            const div = document.createElement('div'); div.className='project'; div.contentEditable='false'; div.innerText = a;
+            achList.appendChild(div);
+          });
+        }
+
+        if(data.publicEmail) document.getElementById('publicEmail').innerText = data.publicEmail;
+        if(data.resumeHref && data.resumeHref !== 'about:blank') resumeLink.href = data.resumeHref;
+
+      }catch(e){
+        console.warn('Failed to load saved portfolio:', e);
       }
     }
-  });
+    loadFromLocalStorage();
 
-  // close mobile overlay when selecting a menu item and un-push stage
-  document.getElementById('mAbout')?.addEventListener('click', ()=> {
-    openPanel('about');
-    overlayOpen=false;
-    mobileOverlay.classList.remove('open');
-    hamburger.setAttribute('aria-expanded','false');
-    stage.classList.remove('pushed');
-  });
-  document.getElementById('mSkills')?.addEventListener('click', ()=> {
-    openPanel('skills');
-    overlayOpen=false;
-    mobileOverlay.classList.remove('open');
-    hamburger.setAttribute('aria-expanded','false');
-    stage.classList.remove('pushed');
-  });
+    // Simple contact form handling (no server) — demonstrates validation
+    contactForm.addEventListener('submit', (ev)=>{
+      ev.preventDefault();
+      const name = document.getElementById('cname').value.trim();
+      const usn = document.getElementById('cusn').value.trim();
+      const email = document.getElementById('cemail').value.trim();
+      const msg = document.getElementById('cmsg').value.trim();
 
-  // close overlay and un-push on resize if needed
-  window.addEventListener('resize', ()=>{
-    if (window.innerWidth > 720) {
-      // ensure overlay hidden and stage unpushed on larger screens
-      overlayOpen = false;
-      mobileOverlay.classList.remove('open');
-      hamburger.setAttribute('aria-expanded','false');
-      stage.classList.remove('pushed');
-    } else {
-      // if mobile and overlay is open, keep pushed state consistent
-      if (overlayOpen) stage.classList.add('pushed');
-    }
-  });
+      // Basic checks (pattern on input will run too)
+      if(!name || !usn || !email || !msg){
+        contactMsg.innerText = 'Please complete all fields.';
+        return;
+      }
 
-  // ripple helper
-  function createRipple(e, el){
-    const r = document.createElement('span');
-    r.className = 'ripple';
-    const rect = el.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height) * 1.2;
-    r.style.width = r.style.height = size + 'px';
-    const cx = e.clientX || (rect.left + rect.width/2);
-    const cy = e.clientY || (rect.top + rect.height/2);
-    r.style.left = (cx - rect.left - size/2) + 'px';
-    r.style.top = (cy - rect.top - size/2) + 'px';
-    el.appendChild(r);
-    setTimeout(()=> r.remove(), 700);
-    el.focus();
-  }
+      // Very simple email/usn check (more rules can be added)
+      const usnRegex = /^[0-9A-Za-z-]{4,16}$/;
+      if(!usnRegex.test(usn)){
+        contactMsg.innerText = 'USN looks invalid. Use correct alphanumeric format.';
+        return;
+      }
 
-  // icon buttons actions
-  const btnGit = document.getElementById('btnGit');
-  const btnEmail = document.getElementById('btnEmail');
-  const btnWhats = document.getElementById('btnWhats');
-  const btnLinked = document.getElementById('btnLinked');
+      // Demo: "sending" => we will just show a success message and reset fields
+      contactMsg.innerText = 'Message sent (demo). For real contact, host a server / use Netlify Forms / Formspree / GitHub Pages form handling.';
+      contactForm.reset();
+      setTimeout(()=> contactMsg.innerText = '', 5000);
+    });
 
-  btnGit && btnGit.addEventListener('click', (e)=> { createRipple(e, btnGit); setTimeout(()=> window.open(GITHUB_URL, '_blank', 'noopener'), 120); });
-  btnEmail && btnEmail.addEventListener('click', (e)=> { createRipple(e, btnEmail); setTimeout(()=> window.location.href = `mailto:${EMAIL_ADDR}`, 120); });
-  btnWhats && btnWhats.addEventListener('click', (e)=> { createRipple(e, btnWhats); setTimeout(()=> { const cleaned = (WHATSAPP_NUMBER || '').replace(/\D/g,''); cleaned ? window.open(`https://wa.me/${cleaned}`, '_blank', 'noopener') : alert('WhatsApp not configured'); }, 120); });
-  btnLinked && btnLinked.addEventListener('click', (e)=> { createRipple(e, btnLinked); setTimeout(()=> window.open(LINKEDIN_URL, '_blank', 'noopener'), 120); });
+    clearContact.addEventListener('click', ()=>{
+      contactForm.reset();
+      contactMsg.innerText = '';
+    });
 
-  // keyboard activation support
-  document.querySelectorAll('.icon-btn, .menu-btn, .hamburger, .download').forEach(el=>{
-    el.addEventListener('keydown', (ev)=> { if(ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); el.click(); }});
-  });
+    // Small UX: allow adding new skill by pressing Enter inside last skill (when editing)
+    document.addEventListener('keydown', (e)=>{
+      if(!editMode) return;
+      if(e.key === 'Enter'){
+        const sel = window.getSelection();
+        if(!sel.rangeCount) return;
+        const node = sel.anchorNode;
+        if(!node) return;
+        // if inside a .skill element, create a new skill after it
+        const skillEl = node.closest ? node.closest('.skill') : (node.parentElement && node.parentElement.closest('.skill'));
+        if(skillEl){
+          e.preventDefault();
+          const newSkill = document.createElement('span');
+          newSkill.className = 'skill';
+          newSkill.contentEditable = 'true';
+          newSkill.innerText = 'New skill';
+          skillEl.after(newSkill);
+          // place caret inside new skill
+          const range = document.createRange();
+          range.selectNodeContents(newSkill);
+          range.collapse(false);
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+      }
+    });
 
-  // download placeholder
-  document.getElementById('downloadBtn').addEventListener('click', (e)=>{
-    e.preventDefault();
-    const lines = [
-      'LATHESH S M',
-      'Full-Stack Developer',
-      '',
-      'Email: ' + (EMAIL_ADDR || 'email@example.com'),
-      'Phone: ' + (WHATSAPP_NUMBER || '+91-9XXXXXXXXX'),
-      '',
-      'Skills: JavaScript, React, Node.js, MongoDB, HTML, CSS'
-    ];
-    const blob = new Blob([lines.join('\n')], {type: 'text/plain'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = 'Lathesh_SM_Resume.txt'; document.body.appendChild(a); a.click(); a.remove();
-    URL.revokeObjectURL(url);
-  });
+    // Make sure anchor tags don't navigate when blank
+    resumeLink.addEventListener('click', (ev)=>{
+      if(resumeLink.href === '#' || resumeLink.href === 'about:blank') {
+        ev.preventDefault();
+        const url = prompt('Paste your resume URL (raw GitHub link or hosted file). Example: https://yourname.github.io/repo/resume.pdf');
+        if(url){
+          resumeLink.href = url;
+          // save new resume href immediately
+          const raw = localStorage.getItem(STORAGE_KEY);
+          const data = raw ? JSON.parse(raw) : {};
+          data.resumeHref = url;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+          alert('Resume link saved locally.');
+        }
+      }
+    });
 
-  // photo click opens About panel
-  document.querySelector('.frame').addEventListener('click', ()=> {
-    if(panel.classList.contains('is-open')) { openPanel(null); return; }
-    openPanel('about');
-  });
+    // when the user exits edit mode (click outside) save automatically?
+    // (We keep explicit Save button to avoid accidental overwrites.)
 
-  // entrance
-  window.addEventListener('load', ()=> { document.getElementById('stage').classList.add('visible'); });
-
-</script>
+    // small: pressing Ctrl+S will save
+    window.addEventListener('keydown', (e)=>{
+      if((e.ctrlKey || e.metaKey) && e.key === 's'){
+        e.preventDefault();
+        saveToLocalStorage();
+      }
+    });
+  </script>
 </body>
-</html>
+  </html>
