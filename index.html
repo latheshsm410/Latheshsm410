@@ -1,421 +1,462 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Portfolio — Your Name</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --accent: #0f172a;
-      --muted: #6b7280;
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --glass: rgba(255,255,255,0.6);
-      --maxw: 1100px;
-    }
-    *{box-sizing:border-box}
-    body{
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      margin:0;
-      background: linear-gradient(180deg,#eef2ff 0%, #f8fafc 100%);
-      color:var(--accent);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-    .container{
-      max-width:var(--maxw);
-      margin:28px auto;
-      padding:20px;
-    }
-    header{
-      display:flex;
-      gap:18px;
-      align-items:center;
-      margin-bottom:20px;
-    }
-    .avatar{
-      width:110px;height:110px;border-radius:14px;background:linear-gradient(135deg,#e0e7ff,#fff);
-      display:flex;align-items:center;justify-content:center;font-weight:700;font-size:28px;color:var(--accent);
-      box-shadow:0 6px 18px rgba(15,23,42,0.08);
-      flex-shrink:0;
-    }
-    .hero{
-      flex:1;
-    }
-    h1{font-size:22px;margin:0 0 6px}
-    .sub{color:var(--muted);margin:0}
-    .controls{display:flex;gap:10px;margin-left:auto}
-    button{
-      background:#111827;color:#fff;border:0;padding:8px 12px;border-radius:10px;font-weight:600;cursor:pointer;
-    }
-    button.ghost{background:transparent;color:var(--accent);border:1px solid rgba(15,23,42,0.06)}
-    main{display:grid;grid-template-columns:1fr 360px;gap:18px}
-    .card{
-      background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.04);
-    }
-    .section{margin-bottom:16px}
-    .section h2{font-size:16px;margin:0 0 10px}
-    .skills-list{display:flex;flex-wrap:wrap;gap:8px}
-    .skill{background:var(--bg);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted)}
-    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .project{border-left:3px solid #e6eefc;padding-left:10px;margin-bottom:8px}
-    a.resume-link{display:inline-block;margin-top:8px;text-decoration:none;padding:8px 10px;border-radius:8px;background:#eef2ff;color:#0f172a;font-weight:600}
-    form input, form textarea, .editable-field{
-      width:100%;padding:8px;border-radius:8px;border:1px solid #e6e9ef;background:transparent;font-size:14px;
-    }
-    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
-    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
-    /* responsive */
-    @media (max-width:880px){
-      main{grid-template-columns:1fr}
-      .controls{margin-top:10px}
-    }
-    .note{font-size:13px;color:var(--muted)}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolio | Web Programming Project</title>
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-light: #f4f4f4;
+            --text-dark: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* 2. JavaScript Requirement: Cursor Tracking Element */
+        #cursor-tracker {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+            display: none; /* Hidden on mobile */
+        }
+
+        /* Layout & Navigation */
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 60px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            border-bottom: 3px solid var(--accent-color);
+            display: inline-block;
+        }
+
+        .section-title-container {
+            text-align: center;
+        }
+
+        /* Profile / Hero Section */
+        #home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            background: var(--bg-light);
+            min-height: 80vh;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-bottom: 20px;
+            border: 5px solid var(--accent-color);
+            /* Replace with actual image tag: <img src="your-photo.jpg"> */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--primary-color);
+        }
+
+        /* Table Implementation */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f3f3f3;
+        }
+
+        /* Skills & Projects Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Contact Form */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .error-msg {
+            color: red;
+            font-size: 0.8em;
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+            nav ul {
+                margin-top: 15px;
+            }
+            #cursor-tracker {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
+
+    <div id="cursor-tracker"></div>
+
     <header>
-      <div class="avatar" id="avatar">LS</div>
-      <div class="hero">
-        <h1 id="name" class="editable-field" contenteditable="false">LATHESH S M</h1>
-        <p id="tagline" class="sub editable-field" contenteditable="false">4MC24CS410 — BE CSE — Web Developer in progress</p>
-        <p class="note">Click <strong>Edit</strong> to change these details (saved locally in your browser).</p>
-      </div>
-      <div class="controls">
-        <button id="editBtn">Edit</button>
-        <button id="saveBtn" class="ghost">Save</button>
-        <button id="resetBtn" class="ghost">Reset</button>
-      </div>
+        <nav>
+            <h1>MyPortfolio</h1>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <main>
-      <!-- Left column: main content -->
-      <div>
-        <!-- Profile -->
-        <section class="card section" id="profileCard">
-          <h2>Profile</h2>
-          <p contenteditable="false" id="profileText" class="editable-field">Student at Malnad College of Engineering. Interested in web development, full-stack, and cloud technologies. Email: latheshsmp1@gmail.com</p>
-        </section>
-
-        <!-- Skills -->
-        <section class="card section" id="skillsCard">
-          <h2>Skills</h2>
-          <div class="skills-list" id="skillsList">
-            <span class="skill editable-field" contenteditable="false">HTML</span>
-            <span class="skill editable-field" contenteditable="false">CSS</span>
-            <span class="skill editable-field" contenteditable="false">JavaScript</span>
-            <span class="skill editable-field" contenteditable="false">C</span>
-            <span class="skill editable-field" contenteditable="false">Git</span>
-          </div>
-          <p class="note">Add or remove skill chips while in Edit mode. After Save, data persists in this browser.</p>
-        </section>
-
-        <!-- Education -->
-        <section class="card section" id="educationCard">
-          <h2>Education</h2>
-          <div class="project">
-            <strong id="eduDegree" contenteditable="false">BE Computer Science & Engineering — Malnad College of Engineering</strong>
-            <div class="note" id="eduYear" contenteditable="false">2022 — Present</div>
-            <div id="eduMore" contenteditable="false" style="margin-top:8px">Relevant coursework: Web Programming, Data Structures, DBMS.</div>
-          </div>
-        </section>
-
-        <!-- Projects -->
-        <section class="card section" id="projectsCard">
-          <h2>Projects</h2>
-          <div id="projectsList">
-            <div class="project">
-              <strong contenteditable="false">Personal Portfolio Website</strong>
-              <div class="note" contenteditable="false">A portfolio built with HTML, CSS, JS. Hosted on GitHub Pages.</div>
-            </div>
-            <div class="project">
-              <strong contenteditable="false">Adler-32 Checksum Visualizer</strong>
-              <div class="note" contenteditable="false">College mini project to explain checksum algorithms step-by-step.</div>
-            </div>
-          </div>
-          <p class="note">You can add more project blocks in Edit mode.</p>
-        </section>
-
-        <!-- Achievements & Certifications -->
-        <section class="card section" id="achievementsCard">
-          <h2>Achievements & Certifications</h2>
-          <div id="achList">
-            <div class="project" contenteditable="false">No certifications yet — add them here.</div>
-          </div>
-        </section>
-      </div>
-
-      <!-- Right column: sidebar -->
-      <aside>
-        <div class="card section">
-          <h2>Contact & Resume</h2>
-          <div>
-            <label for="email">Email (public)</label>
-            <div id="publicEmail" class="note editable-field" contenteditable="false">latheshsmp1@gmail.com</div>
-
-            <p style="margin-top:10px"><a id="resumeLink" class="resume-link" href="#" target="_blank" rel="noreferrer">Download Resume</a></p>
-            <p class="note">Tip: upload your resume to your GitHub repo and paste the raw GitHub Pages link here in Edit mode.</p>
-          </div>
+    <section id="home">
+        <div class="profile-img">
+            <span>Your Photo</span>
         </div>
+        <h1>Student Name</h1>
+        <p>Web Developer | Engineering Student</p>
+        <p>Welcome to my personal portfolio designed for the Web Programming Laboratory (22CS505).</p>
+        <a href="#" class="btn" onclick="alert('Resume download simulated.')">Download Resume</a>
+    </section>
 
-        <div class="card section">
-          <h2>Contact Form</h2>
-          <form id="contactForm" onsubmit="return false;">
-            <label for="cname">Name</label>
-            <input id="cname" type="text" placeholder="Your name" required>
+    <section id="education">
+        <div class="section-title-container">
+            <h2>Education</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Degree</th>
+                    <th>Institution</th>
+                    <th>Year</th>
+                    <th>CGPA/Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>B.E. (CSE)</td>
+                    <td>Your College Name</td>
+                    <td>2022 - 2026</td>
+                    <td>8.5 CGPA</td>
+                </tr>
+                <tr>
+                    <td>PUC / 12th</td>
+                    <td>Your PU College</td>
+                    <td>2022</td>
+                    <td>90%</td>
+                </tr>
+                <tr>
+                    <td>SSLC / 10th</td>
+                    <td>Your School</td>
+                    <td>2020</td>
+                    <td>95%</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
-            <label for="cusn" style="margin-top:8px">USN</label>
-            <!-- Sample USN pattern (VTU style) - adjust if needed -->
-            <input id="cusn" type="text" placeholder="e.g. 4MC24CS410" pattern="^[0-9A-Za-z-]{4,16}$" title="Enter a valid USN (alphanumeric)" required>
-
-            <label for="cemail" style="margin-top:8px">Email</label>
-            <input id="cemail" type="email" placeholder="your.email@example.com" required>
-
-            <label for="cmsg" style="margin-top:8px">Message</label>
-            <textarea id="cmsg" rows="4" placeholder="Write a short message" required></textarea>
-
-            <div style="display:flex;gap:8px;margin-top:10px">
-              <button id="sendBtn" type="submit">Send</button>
-              <button id="clearContact" type="button" class="ghost">Clear</button>
+    <section id="skills">
+        <div class="section-title-container">
+            <h2>Skills</h2>
+        </div>
+        <div class="grid-container">
+            <div class="card">
+                <h3>Frontend</h3>
+                <p>HTML5, CSS3, JavaScript, XML</p>
             </div>
-            <p id="contactMsg" class="note" style="margin-top:8px"></p>
-          </form>
+            <div class="card">
+                <h3>Backend</h3>
+                <p>PHP, MySQL, Node.js</p>
+            </div>
+            <div class="card">
+                <h3>Tools</h3>
+                <p>GitHub, VS Code, XAMPP</p>
+            </div>
         </div>
+    </section>
 
-        <div class="card section">
-          <h2>Quick Info</h2>
-          <p class="note">Course: Web Programming Laboratory (22CS505)</p>
-          <p class="note">Faculty: Mr. Ravi Kumar D</p>
-          <p class="note">Repo: Create a public GitHub repo and host with GitHub Pages.</p>
+    <section id="projects">
+        <div class="section-title-container">
+            <h2>Projects & Achievements</h2>
         </div>
-      </aside>
-    </main>
+        <div class="grid-container">
+            <div class="card">
+                <h3>Smart Dustbin</h3>
+                <p>An IoT based dustbin using Arduino and Ultrasonic sensors.</p>
+            </div>
+            <div class="card">
+                <h3>Portfolio Website</h3>
+                <p>A responsive portfolio built using HTML, CSS, JS, and PHP.</p>
+            </div>
+            <div class="card" style="border-left: 5px solid gold;">
+                <h3>Certifications</h3>
+                <ul style="padding-left: 20px;">
+                    <li>Full Stack Web Development</li>
+                    <li>Java Programming Basics</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center;">
+            <button class="btn" onclick="loadXMLData()">Load Projects from XML</button>
+            <p id="xml-display" style="margin-top: 10px; color: #666; font-size: 0.9em;">(Requires separate .xml file)</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-title-container">
+            <h2>Contact Me</h2>
+        </div>
+        
+        <form id="contactForm" action="#" method="POST" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name">
+                <span class="error-msg" id="nameError">Name is required</span>
+            </div>
+
+            <div class="form-group">
+                <label for="usn">USN (Format: 1AA22CS000):</label>
+                <input type="text" id="usn" name="usn" placeholder="Enter valid USN">
+                <span class="error-msg" id="usnError">Invalid USN format</span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+                <span class="error-msg" id="emailError">Valid email is required</span>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" placeholder="Your message"></textarea>
+            </div>
+
+            <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+        </form>
+    </section>
 
     <footer>
-      <div class="note">This is a local editable template — changes are saved in your browser's localStorage.</div>
+        <p>&copy; 2025 Student Portfolio. Hosted on GitHub Pages.</p>
     </footer>
-  </div>
 
-  <script>
-    // Keys used in localStorage
-    const STORAGE_KEY = 'portfolio_v1';
+    <script>
+        // 1. Cursor Tracking 
+        const cursor = document.getElementById('cursor-tracker');
+        
+        document.addEventListener('mousemove', (e) => {
+            // Only show on desktop to prevent issues on mobile
+            if (window.innerWidth > 768) {
+                cursor.style.display = 'block';
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
 
-    // Elements
-    const editBtn = document.getElementById('editBtn');
-    const saveBtn = document.getElementById('saveBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const editableEls = document.querySelectorAll('.editable-field');
-    const resumeLink = document.getElementById('resumeLink');
+        // 2. DOM Events & Dynamic Sections 
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
 
-    // Contact form elements
-    const contactForm = document.getElementById('contactForm');
-    const sendBtn = document.getElementById('sendBtn');
-    const clearContact = document.getElementById('clearContact');
-    const contactMsg = document.getElementById('contactMsg');
+        // 3. Form & USN Validation 
+        function validateForm() {
+            let isValid = true;
+            
+            // Name Validation
+            const name = document.getElementById('name').value;
+            if (name.trim() === "") {
+                document.getElementById('nameError').style.display = "block";
+                isValid = false;
+            } else {
+                document.getElementById('nameError').style.display = "none";
+            }
 
-    // Toggle edit mode
-    let editMode = false;
-    function setEditMode(on){
-      editMode = !!on;
-      editableEls.forEach(el=>{
-        el.contentEditable = editMode ? "true" : "false";
-        if(editMode) el.classList.add('editing'); else el.classList.remove('editing');
-      });
-      // Make skills editable inline
-      document.querySelectorAll('.skill').forEach(s=>{
-        s.contentEditable = editMode ? "true" : "false";
-      });
-      editBtn.textContent = editMode ? 'Editing...' : 'Edit';
-      saveBtn.style.display = editMode ? 'inline-block' : 'none';
-    }
-    setEditMode(false);
+            // USN Validation (Regex for Visvesvaraya Technological University style)
+            const usn = document.getElementById('usn').value;
+            // Example Regex: 1 followed by 2 letters, 2 digits, 2 letters, 3 digits (e.g., 1RV22CS001)
+            const usnRegex = /^[1-4][A-Z]{2}\d{2}[A-Z]{2}\d{3}$/i; 
+            
+            if (!usnRegex.test(usn)) {
+                document.getElementById('usnError').style.display = "block";
+                alert("Validation Failed: Please enter a valid USN (e.g., 1RV22CS001).");
+                isValid = false;
+            } else {
+                document.getElementById('usnError').style.display = "none";
+            }
 
-    editBtn.addEventListener('click', ()=> setEditMode(true));
-    saveBtn.addEventListener('click', saveToLocalStorage);
-    resetBtn.addEventListener('click', ()=>{
-      if(confirm('Reset saved data and reload template?')) {
-        localStorage.removeItem(STORAGE_KEY);
-        location.reload();
-      }
-    });
+            // Email Validation
+            const email = document.getElementById('email').value;
+            if(email.trim() === "" || !email.includes('@')) {
+                document.getElementById('emailError').style.display = "block";
+                isValid = false;
+            } else {
+                document.getElementById('emailError').style.display = "none";
+            }
 
-    // Save current editable content to localStorage
-    function saveToLocalStorage(){
-      const data = {};
-      // Basic fields
-      data.name = document.getElementById('name').innerText.trim();
-      data.tagline = document.getElementById('tagline').innerText.trim();
-      data.avatar = document.getElementById('avatar').innerText.trim();
-      data.profileText = document.getElementById('profileText').innerText.trim();
-
-      // skills: collect .skill texts
-      data.skills = Array.from(document.querySelectorAll('.skill')).map(s=>s.innerText.trim()).filter(Boolean);
-
-      // education & projects
-      data.eduDegree = document.getElementById('eduDegree').innerText.trim();
-      data.eduYear = document.getElementById('eduYear').innerText.trim();
-      data.eduMore = document.getElementById('eduMore').innerText.trim();
-
-      // projects & achievements
-      data.projects = Array.from(document.querySelectorAll('#projectsList .project')).map(p => {
-        const title = p.querySelector('strong') ? p.querySelector('strong').innerText.trim() : '';
-        const note = p.querySelector('.note') ? p.querySelector('.note').innerText.trim() : '';
-        return { title, note };
-      });
-      data.ach = Array.from(document.querySelectorAll('#achList .project')).map(p => p.innerText.trim());
-
-      // contact & resume
-      data.publicEmail = document.getElementById('publicEmail').innerText.trim();
-      data.resumeHref = resumeLink.href;
-
-      // store
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      setEditMode(false);
-      alert('Saved locally in your browser (localStorage). Remember to push updates to GitHub later.');
-    }
-
-    // Load from localStorage if exists
-    function loadFromLocalStorage(){
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if(!raw) return;
-      try{
-        const data = JSON.parse(raw);
-        if(data.name) document.getElementById('name').innerText = data.name;
-        if(data.tagline) document.getElementById('tagline').innerText = data.tagline;
-        if(data.avatar) document.getElementById('avatar').innerText = data.avatar.substring(0,2).toUpperCase();
-        if(data.profileText) document.getElementById('profileText').innerText = data.profileText;
-        if(Array.isArray(data.skills) && data.skills.length){
-          const skillsList = document.getElementById('skillsList');
-          skillsList.innerHTML = '';
-          data.skills.forEach(s=>{
-            const span = document.createElement('span');
-            span.className = 'skill';
-            span.contentEditable = 'false';
-            span.innerText = s;
-            skillsList.appendChild(span);
-          });
-        }
-        if(data.eduDegree) document.getElementById('eduDegree').innerText = data.eduDegree;
-        if(data.eduYear) document.getElementById('eduYear').innerText = data.eduYear;
-        if(data.eduMore) document.getElementById('eduMore').innerText = data.eduMore;
-
-        if(Array.isArray(data.projects) && data.projects.length){
-          const projectsList = document.getElementById('projectsList');
-          projectsList.innerHTML = '';
-          data.projects.forEach(p=>{
-            const wrapper = document.createElement('div'); wrapper.className = 'project';
-            wrapper.innerHTML = '<strong contenteditable="false">' + (p.title||'Untitled') + '</strong>' +
-                                '<div class="note" contenteditable="false">' + (p.note||'') + '</div>';
-            projectsList.appendChild(wrapper);
-          });
+            if(isValid) {
+                alert("Form Validated Successfully! (PHP would process this now)");
+            }
+            
+            return isValid; // Returns false to prevent actual submission since we have no PHP backend here
         }
 
-        if(Array.isArray(data.ach) && data.ach.length){
-          const achList = document.getElementById('achList');
-          achList.innerHTML = '';
-          data.ach.forEach(a=>{
-            const div = document.createElement('div'); div.className='project'; div.contentEditable='false'; div.innerText = a;
-            achList.appendChild(div);
-          });
+        // 4. XML Simulation (Placeholder for XML+XSLT requirement)
+        function loadXMLData() {
+            const display = document.getElementById('xml-display');
+            display.innerText = "To satisfy the XML+XSLT requirement , you must create a separate 'data.xml' and 'style.xsl' file. Browsers often block local XML fetching due to CORS policy without a server.";
+            alert("This feature requires an external XML file and XSLT processor.");
         }
-
-        if(data.publicEmail) document.getElementById('publicEmail').innerText = data.publicEmail;
-        if(data.resumeHref && data.resumeHref !== 'about:blank') resumeLink.href = data.resumeHref;
-
-      }catch(e){
-        console.warn('Failed to load saved portfolio:', e);
-      }
-    }
-    loadFromLocalStorage();
-
-    // Simple contact form handling (no server) — demonstrates validation
-    contactForm.addEventListener('submit', (ev)=>{
-      ev.preventDefault();
-      const name = document.getElementById('cname').value.trim();
-      const usn = document.getElementById('cusn').value.trim();
-      const email = document.getElementById('cemail').value.trim();
-      const msg = document.getElementById('cmsg').value.trim();
-
-      // Basic checks (pattern on input will run too)
-      if(!name || !usn || !email || !msg){
-        contactMsg.innerText = 'Please complete all fields.';
-        return;
-      }
-
-      // Very simple email/usn check (more rules can be added)
-      const usnRegex = /^[0-9A-Za-z-]{4,16}$/;
-      if(!usnRegex.test(usn)){
-        contactMsg.innerText = 'USN looks invalid. Use correct alphanumeric format.';
-        return;
-      }
-
-      // Demo: "sending" => we will just show a success message and reset fields
-      contactMsg.innerText = 'Message sent (demo). For real contact, host a server / use Netlify Forms / Formspree / GitHub Pages form handling.';
-      contactForm.reset();
-      setTimeout(()=> contactMsg.innerText = '', 5000);
-    });
-
-    clearContact.addEventListener('click', ()=>{
-      contactForm.reset();
-      contactMsg.innerText = '';
-    });
-
-    // Small UX: allow adding new skill by pressing Enter inside last skill (when editing)
-    document.addEventListener('keydown', (e)=>{
-      if(!editMode) return;
-      if(e.key === 'Enter'){
-        const sel = window.getSelection();
-        if(!sel.rangeCount) return;
-        const node = sel.anchorNode;
-        if(!node) return;
-        // if inside a .skill element, create a new skill after it
-        const skillEl = node.closest ? node.closest('.skill') : (node.parentElement && node.parentElement.closest('.skill'));
-        if(skillEl){
-          e.preventDefault();
-          const newSkill = document.createElement('span');
-          newSkill.className = 'skill';
-          newSkill.contentEditable = 'true';
-          newSkill.innerText = 'New skill';
-          skillEl.after(newSkill);
-          // place caret inside new skill
-          const range = document.createRange();
-          range.selectNodeContents(newSkill);
-          range.collapse(false);
-          sel.removeAllRanges();
-          sel.addRange(range);
-        }
-      }
-    });
-
-    // Make sure anchor tags don't navigate when blank
-    resumeLink.addEventListener('click', (ev)=>{
-      if(resumeLink.href === '#' || resumeLink.href === 'about:blank') {
-        ev.preventDefault();
-        const url = prompt('Paste your resume URL (raw GitHub link or hosted file). Example: https://yourname.github.io/repo/resume.pdf');
-        if(url){
-          resumeLink.href = url;
-          // save new resume href immediately
-          const raw = localStorage.getItem(STORAGE_KEY);
-          const data = raw ? JSON.parse(raw) : {};
-          data.resumeHref = url;
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-          alert('Resume link saved locally.');
-        }
-      }
-    });
-
-    // when the user exits edit mode (click outside) save automatically?
-    // (We keep explicit Save button to avoid accidental overwrites.)
-
-    // small: pressing Ctrl+S will save
-    window.addEventListener('keydown', (e)=>{
-      if((e.ctrlKey || e.metaKey) && e.key === 's'){
-        e.preventDefault();
-        saveToLocalStorage();
-      }
-    });
-  </script>
+    </script>
 </body>
-  </html>
+</html>
