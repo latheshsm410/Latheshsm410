@@ -1,462 +1,241 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Portfolio | Web Programming Project</title>
-    
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --bg-light: #f4f4f4;
-            --text-dark: #333;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LATHESH S M — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#7c3aed;
+      --muted:#9aa4b2;
+      --glass: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#e6eef8;background:linear-gradient(180deg,var(--bg),#071223)}.wrap{display:flex;min-height:100vh;gap:24px;padding:28px}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+/* SIDEBAR */
+.sidebar{
+  width:300px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;padding:28px;backdrop-filter: blur(6px);
+  display:flex;flex-direction:column;align-items:flex-start;gap:18px;flex-shrink:0
+}
+.logo{
+  display:flex;align-items:center;gap:14px
+}
+.mark{
+  width:64px;height:64px;border-radius:14px;display:grid;place-items:center; font-weight:800;font-size:20px;color:white;background:linear-gradient(135deg,var(--accent),#4f46e5);box-shadow:0 6px 18px rgba(124,58,237,0.18)
+}
+.name{font-weight:800;font-size:18px;letter-spacing:1px}
+.subtitle{font-size:12px;color:var(--muted)}
 
-        body {
-            line-height: 1.6;
-            color: var(--text-dark);
-        }
+nav{width:100%;margin-top:6px}
+.nav-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.nav-list a{display:block;padding:10px 12px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:600}
+.nav-list a:hover{background:var(--glass);color:#fff}
 
-        /* 2. JavaScript Requirement: Cursor Tracking Element */
-        #cursor-tracker {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--accent-color);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease;
-            transform: translate(-50%, -50%);
-            display: none; /* Hidden on mobile */
-        }
+.sidebar-footer{margin-top:auto;font-size:13px;color:var(--muted)}
 
-        /* Layout & Navigation */
-        header {
-            background: var(--primary-color);
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;gap:18px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:14px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+/* Hero / Home */
+.hero{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.hero-left{max-width:64%}
+.hi{font-size:14px;color:var(--muted);margin:0}
+.title{font-size:34px;margin:6px 0 8px}
+.role{color:var(--muted);margin-bottom:12px}
+.cta{display:flex;gap:12px}
+.btn{padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+.btn-primary{background:linear-gradient(90deg,var(--accent),#4f46e5);color:white}
+.btn-ghost{border:1px solid rgba(255,255,255,0.04);color:var(--muted);background:transparent}
 
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
+.hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.hero-preview{width:220px;height:140px;border-radius:12px;background:linear-gradient(135deg,#05263a, #063047);display:grid;place-items:center;color:#9fd6ff}
 
-        nav ul li {
-            margin-left: 20px;
-        }
+/* About */
+.about{display:flex;gap:18px;align-items:center}
+.profile{width:120px;height:120px;border-radius:16px;overflow:hidden;flex-shrink:0;border:4px solid rgba(255,255,255,0.03)}
+.profile img{width:100%;height:100%;object-fit:cover;display:block}
+.bio{flex:1}
+.bio p{color:var(--muted);line-height:1.5}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
+/* Skills */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+.skill-group{background:rgba(255,255,255,0.02);padding:12px;border-radius:12px}
+.skill-group h4{margin:0 0 8px}
+.skill{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.bar{height:10px;border-radius:10px;background:rgba(255,255,255,0.04);overflow:hidden;flex:1;margin-left:12px}
+.bar > i{display:block;height:100%;width:0%;border-radius:10px;background:linear-gradient(90deg,var(--accent),#06b6d4);transition:width 1.2s ease}
 
-        nav a:hover {
-            color: var(--accent-color);
-        }
+/* Certifications */
+.cert-list{display:flex;flex-direction:column;gap:8px}
+.cert{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,0.015),transparent)}
+.cert .badge{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);font-weight:700}
 
-        /* Section Styles */
-        section {
-            padding: 60px 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+/* Contact */
+.contact-grid{display:flex;gap:12px;flex-wrap:wrap}
+.contact a{display:flex;align-items:center;gap:8px;padding:10px;border-radius:10px;text-decoration:none;color:var(--muted)}
+.contact a:hover{color:white}
 
-        h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            border-bottom: 3px solid var(--accent-color);
-            display: inline-block;
-        }
+footer{margin-top:8px;color:var(--muted);font-size:13px}
 
-        .section-title-container {
-            text-align: center;
-        }
+/* Responsive */
+@media (max-width:900px){
+  .wrap{flex-direction:column;padding:16px}
+  .sidebar{width:100%;flex-direction:row;align-items:center;padding:12px;border-radius:12px}
+  .main{order:2}
+  .hero-left{max-width:100%}
+  .skills-grid{grid-template-columns:repeat(2,1fr)}
+}
 
-        /* Profile / Hero Section */
-        #home {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
-            background: var(--bg-light);
-            min-height: 80vh;
-        }
+@media (max-width:560px){
+  .skills-grid{grid-template-columns:1fr}
+  .hero{flex-direction:column;align-items:flex-start}
+  .hero-right{align-items:flex-start}
+}
 
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-bottom: 20px;
-            border: 5px solid var(--accent-color);
-            /* Replace with actual image tag: <img src="your-photo.jpg"> */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-        }
+/* Subtle floating animation */
+.float{animation:float 6s ease-in-out infinite}
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
 
-        .btn {
-            display: inline-block;
-            background: var(--accent-color);
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: background 0.3s;
-        }
-
-        .btn:hover {
-            background: var(--primary-color);
-        }
-
-        /* Table Implementation */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-
-        th, td {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        th {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f3f3f3;
-        }
-
-        /* Skills & Projects Grid */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Contact Form */
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .error-msg {
-            color: red;
-            font-size: 0.8em;
-            display: none;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-        }
-
-        /* Responsiveness */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-            }
-            nav ul {
-                margin-top: 15px;
-            }
-            #cursor-tracker {
-                display: none;
-            }
-        }
-    </style>
+  </style>
 </head>
 <body>
-
-    <div id="cursor-tracker"></div>
-
-    <header>
-        <nav>
-            <h1>MyPortfolio</h1>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section id="home">
-        <div class="profile-img">
-            <span>Your Photo</span>
+  <div class="wrap">
+    <aside class="sidebar card">
+      <div class="logo">
+        <div class="mark">LS</div>
+        <div>
+          <div class="name">LATHESH S M</div>
+          <div class="subtitle">Web developer • Learner • Problem-solver</div>
         </div>
-        <h1>Student Name</h1>
-        <p>Web Developer | Engineering Student</p>
-        <p>Welcome to my personal portfolio designed for the Web Programming Laboratory (22CS505).</p>
-        <a href="#" class="btn" onclick="alert('Resume download simulated.')">Download Resume</a>
-    </section>
+      </div><nav>
+    <ul class="nav-list">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certs">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-    <section id="education">
-        <div class="section-title-container">
-            <h2>Education</h2>
+  <div class="sidebar-footer">Available for internships & freelance — Open to opportunities</div>
+</aside>
+
+<main class="main">
+  <!-- HOME -->
+  <section id="home" class="card hero">
+    <div class="hero-left">
+      <p class="hi">Hello — I'm</p>
+      <h1 class="title">LATHESH S M</h1>
+      <div class="role">Frontend Developer with interest in system design, algorithms, and cloud.</div>
+      <div class="cta">
+        <a class="btn btn-primary" href="#contact">Contact Me</a>
+        <a class="btn btn-ghost" href="#skills">See Skills</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-preview float">
+        <div style="text-align:center">
+          <strong style="display:block;font-size:16px">Portfolio Preview</strong>
+          <small style="color:var(--muted)">Clean. Modern. Responsive.</small>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Degree</th>
-                    <th>Institution</th>
-                    <th>Year</th>
-                    <th>CGPA/Percentage</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>B.E. (CSE)</td>
-                    <td>Your College Name</td>
-                    <td>2022 - 2026</td>
-                    <td>8.5 CGPA</td>
-                </tr>
-                <tr>
-                    <td>PUC / 12th</td>
-                    <td>Your PU College</td>
-                    <td>2022</td>
-                    <td>90%</td>
-                </tr>
-                <tr>
-                    <td>SSLC / 10th</td>
-                    <td>Your School</td>
-                    <td>2020</td>
-                    <td>95%</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+      </div>
+      <div style="font-size:12px;color:var(--muted)">Based on an HTML single-file template — replace images & links.</div>
+    </div>
+  </section>
 
-    <section id="skills">
-        <div class="section-title-container">
-            <h2>Skills</h2>
-        </div>
-        <div class="grid-container">
-            <div class="card">
-                <h3>Frontend</h3>
-                <p>HTML5, CSS3, JavaScript, XML</p>
-            </div>
-            <div class="card">
-                <h3>Backend</h3>
-                <p>PHP, MySQL, Node.js</p>
-            </div>
-            <div class="card">
-                <h3>Tools</h3>
-                <p>GitHub, VS Code, XAMPP</p>
-            </div>
-        </div>
-    </section>
+  <!-- ABOUT -->
+  <section id="about" class="card about">
+    <div class="profile">
+      <!-- Replace profile.jpg with your photo -->
+      <img src="profile.jpg" alt="Lathesh Profile Photo">
+    </div>
+    <div class="bio">
+      <h3>About Me</h3>
+      <p>I am a passionate developer learning and building web apps. I enjoy solving problems, practicing algorithms, and exploring cloud computing. I build responsive user interfaces and practice best coding patterns. I love contributing to open-source projects and improving my craft every day.</p>
+      <p style="margin-top:8px;color:var(--muted)"><strong>Quick facts:</strong> Experienced with C, Java, Python; building web frontends with HTML/CSS/JS; learning React and cloud platforms like AWS.</p>
+    </div>
+  </section>
 
-    <section id="projects">
-        <div class="section-title-container">
-            <h2>Projects & Achievements</h2>
-        </div>
-        <div class="grid-container">
-            <div class="card">
-                <h3>Smart Dustbin</h3>
-                <p>An IoT based dustbin using Arduino and Ultrasonic sensors.</p>
-            </div>
-            <div class="card">
-                <h3>Portfolio Website</h3>
-                <p>A responsive portfolio built using HTML, CSS, JS, and PHP.</p>
-            </div>
-            <div class="card" style="border-left: 5px solid gold;">
-                <h3>Certifications</h3>
-                <ul style="padding-left: 20px;">
-                    <li>Full Stack Web Development</li>
-                    <li>Java Programming Basics</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div style="margin-top: 30px; text-align: center;">
-            <button class="btn" onclick="loadXMLData()">Load Projects from XML</button>
-            <p id="xml-display" style="margin-top: 10px; color: #666; font-size: 0.9em;">(Requires separate .xml file)</p>
-        </div>
-    </section>
+  <!-- SKILLS -->
+  <section id="skills" class="card">
+    <h3>Skills</h3>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Programming languages</h4>
+        <div class="skill"><span>C</span><div class="bar"><i data-val="85"></i></div></div>
+        <div class="skill"><span>Java</span><div class="bar"><i data-val="78"></i></div></div>
+        <div class="skill"><span>Python</span><div class="bar"><i data-val="82"></i></div></div>
+      </div>
 
-    <section id="contact">
-        <div class="section-title-container">
-            <h2>Contact Me</h2>
-        </div>
-        
-        <form id="contactForm" action="#" method="POST" onsubmit="return validateForm()">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name">
-                <span class="error-msg" id="nameError">Name is required</span>
-            </div>
+      <div class="skill-group">
+        <h4>Web</h4>
+        <div class="skill"><span>HTML</span><div class="bar"><i data-val="95"></i></div></div>
+        <div class="skill"><span>CSS</span><div class="bar"><i data-val="88"></i></div></div>
+        <div class="skill"><span>JavaScript</span><div class="bar"><i data-val="80"></i></div></div>
+      </div>
 
-            <div class="form-group">
-                <label for="usn">USN (Format: 1AA22CS000):</label>
-                <input type="text" id="usn" name="usn" placeholder="Enter valid USN">
-                <span class="error-msg" id="usnError">Invalid USN format</span>
-            </div>
+      <div class="skill-group">
+        <h4>Cloud & Tools</h4>
+        <div class="skill"><span>AWS</span><div class="bar"><i data-val="65"></i></div></div>
+        <div class="skill"><span>Git / GitHub</span><div class="bar"><i data-val="85"></i></div></div>
+        <div class="skill"><span>Data Engineering</span><div class="bar"><i data-val="60"></i></div></div>
+      </div>
+    </div>
+  </section>
 
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email">
-                <span class="error-msg" id="emailError">Valid email is required</span>
-            </div>
+  <!-- CERTIFICATIONS -->
+  <section id="certs" class="card">
+    <h3>Certifications</h3>
+    <div class="cert-list">
+      <div class="cert"><div class="badge">Cloud</div><div><strong>Cloud Computing — Certificate</strong><div style="font-size:13px;color:var(--muted)">Issued by: [Provider] • 2024</div></div></div>
+      <div class="cert"><div class="badge">Data</div><div><strong>Data Mining & Warehouse — Certificate</strong><div style="font-size:13px;color:var(--muted)">Issued by: [Provider] • 2023</div></div></div>
+      <div class="cert"><div class="badge">NPTEL</div><div><strong>NPTEL Course — Certificate</strong><div style="font-size:13px;color:var(--muted)">Issued by: NPTEL • 2022</div></div></div>
+    </div>
+  </section>
 
-            <div class="form-group">
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="5" placeholder="Your message"></textarea>
-            </div>
+  <!-- CONTACT -->
+  <section id="contact" class="card">
+    <h3>Contact</h3>
+    <div class="contact-grid contact">
+      <a href="tel:+911234567890" title="Call"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.03-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57.12.36.03.76-.24 1.03l-2.2 2.2z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> +91 12345 67890</a>
+      <a href="mailto:lathesh@example.com" title="Email"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 8.5v7a2 2 0 002 2h12a2 2 0 002-2v-7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 6a2 2 0 00-2-2H4a2 2 0 00-2 2v.5l10 6 10-6V6z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> lathesh@example.com</a>
+      <a href="https://github.com/lathesh" target="_blank" rel="noopener noreferrer" title="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5a12 12 0 00-3.79 23.4c.6.1.82-.26.82-.58v-2.13c-3.34.73-4.04-1.6-4.04-1.6-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.5.12-3.12 0 0 1.01-.32 3.3 1.23a11.44 11.44 0 016 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.62.24 2.82.12 3.12.77.84 1.23 1.91 1.23 3.22 0 4.62-2.8 5.64-5.48 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.21.69.82.58A12 12 0 0012 .5z" stroke="currentColor" stroke-width="0.4"/></svg> GitHub</a>
+      <a href="https://www.linkedin.com/in/lathesh" target="_blank" rel="noopener noreferrer" title="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-14h4v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> LinkedIn</a>
+    </div>
+    <footer>Prefer email for detailed queries. I usually reply within a day.</footer>
+  </section>
+</main>
 
-            <button type="submit" class="btn" style="width: 100%;">Send Message</button>
-        </form>
-    </section>
+  </div>  <script>
+    // Smooth scroll for nav
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      })
+    });
 
-    <footer>
-        <p>&copy; 2025 Student Portfolio. Hosted on GitHub Pages.</p>
-    </footer>
-
-    <script>
-        // 1. Cursor Tracking 
-        const cursor = document.getElementById('cursor-tracker');
-        
-        document.addEventListener('mousemove', (e) => {
-            // Only show on desktop to prevent issues on mobile
-            if (window.innerWidth > 768) {
-                cursor.style.display = 'block';
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            }
-        });
-
-        // 2. DOM Events & Dynamic Sections 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // 3. Form & USN Validation 
-        function validateForm() {
-            let isValid = true;
-            
-            // Name Validation
-            const name = document.getElementById('name').value;
-            if (name.trim() === "") {
-                document.getElementById('nameError').style.display = "block";
-                isValid = false;
-            } else {
-                document.getElementById('nameError').style.display = "none";
-            }
-
-            // USN Validation (Regex for Visvesvaraya Technological University style)
-            const usn = document.getElementById('usn').value;
-            // Example Regex: 1 followed by 2 letters, 2 digits, 2 letters, 3 digits (e.g., 1RV22CS001)
-            const usnRegex = /^[1-4][A-Z]{2}\d{2}[A-Z]{2}\d{3}$/i; 
-            
-            if (!usnRegex.test(usn)) {
-                document.getElementById('usnError').style.display = "block";
-                alert("Validation Failed: Please enter a valid USN (e.g., 1RV22CS001).");
-                isValid = false;
-            } else {
-                document.getElementById('usnError').style.display = "none";
-            }
-
-            // Email Validation
-            const email = document.getElementById('email').value;
-            if(email.trim() === "" || !email.includes('@')) {
-                document.getElementById('emailError').style.display = "block";
-                isValid = false;
-            } else {
-                document.getElementById('emailError').style.display = "none";
-            }
-
-            if(isValid) {
-                alert("Form Validated Successfully! (PHP would process this now)");
-            }
-            
-            return isValid; // Returns false to prevent actual submission since we have no PHP backend here
+    // Skill bars animate when visible
+    const bars = document.querySelectorAll('.bar > i');
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const el = entry.target;
+          const val = el.getAttribute('data-val')||70;
+          el.style.width = val + '%';
+          obs.unobserve(el);
         }
+      })
+    },{threshold:0.35});
+    bars.forEach(b=>obs.observe(b));
 
-        // 4. XML Simulation (Placeholder for XML+XSLT requirement)
-        function loadXMLData() {
-            const display = document.getElementById('xml-display');
-            display.innerText = "To satisfy the XML+XSLT requirement , you must create a separate 'data.xml' and 'style.xsl' file. Browsers often block local XML fetching due to CORS policy without a server.";
-            alert("This feature requires an external XML file and XSLT processor.");
-        }
-    </script>
-</body>
-</html>
+  </script></body>
+    </html>
