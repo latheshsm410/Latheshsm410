@@ -1,229 +1,393 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LATHESH S M — Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#051022;--card:#0b1624;--glass:rgba(255,255,255,0.03);--accent:#7c3aed;--accent2:#06b6d4;--muted:#9fb0c8
-    }
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#03101a,var(--bg));color:#eaf6ff;display:flex;flex-direction:column}
-    a{color:inherit}/* TOPBAR */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;gap:20px}
-.brand{display:flex;align-items:center;gap:12px}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Professional Portfolio</title>
+    
+    <style>
+        /* --- General Reset & Styling --- */
+        :root {
+            --primary-color: #4A90E2; /* Blue */
+            --secondary-color: #FF9800; /* Orange */
+            --background-light: #f4f4f9;
+            --background-card: #ffffff;
+            --text-dark: #333;
+        }
 
-/* CSS SVG logo */
-.logo-svg{width:72px;height:72px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 12px 30px rgba(7,18,36,0.6)}
-.logo-svg svg{width:58px;height:58px}
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            overflow-x: hidden; /* Crucial to hide the excess content during animation */
+            scroll-behavior: smooth;
+        }
+        
+        /* --- Header (Fixed Navigation) --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
 
-.brand h1{margin:0;font-size:16px;letter-spacing:1px;font-weight:800}
-.brand small{display:block;color:var(--muted);font-size:12px}
+        .logo {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--primary-color); 
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
 
-.nav{display:flex;gap:14px;align-items:center}
-.nav a{padding:10px 12px;border-radius:10px;text-decoration:none;font-weight:700;color:var(--muted)}
-.nav a:hover{color:#fff;background:rgba(255,255,255,0.03)}
+        nav a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            padding: 8px 12px;
+            transition: color 0.3s, background-color 0.3s, border-radius 0.3s;
+        }
 
-/* container */
-.container{padding:18px 28px;display:grid;gap:18px;flex:1}
+        nav a:hover {
+            color: var(--background-card);
+            background-color: var(--primary-color);
+            border-radius: 6px;
+        }
 
-/* SECTION CARD */
-.card{padding:28px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+        /* --- Continuous Horizontal Movement --- */
+        
+        /* Define the duration and type of the animation */
+        @keyframes scroll-motion {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Scrolls half the content */
+        }
 
-/* ABOUT (first) - centered photo + small intro */
-#about{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
-.profile-wrap{width:170px;height:170px;border-radius:20px;overflow:hidden;border:6px solid rgba(255,255,255,0.03);box-shadow:0 18px 40px rgba(7,24,40,0.6)}
-.profile-wrap img{width:100%;height:100%;object-fit:cover}
-.about-short{max-width:820px;color:var(--muted);line-height:1.6}
+        .animation-wrapper {
+            /* Adjust padding-top to account for the fixed header height */
+            padding-top: 80px; 
+            overflow: hidden;
+            width: 100vw;
+        }
 
-/* EDUCATION: simple vertical list */
-#education{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.edu-card{padding:14px;border-radius:12px;background:rgba(255,255,255,0.02);text-align:center}
-.edu-card h4{margin:4px 0}
-.edu-card p{margin:0;color:var(--muted);font-size:13px}
+        #moving-container {
+            /* Total width: 2x the content so it can seamlessly loop */
+            width: 200vw; 
+            display: flex;
+            flex-wrap: nowrap; /* Keep all sections on one line */
+            animation: scroll-motion 100s linear infinite; /* 100s = speed */
+        }
 
-/* SKILLS: horizontal scrolling only (no rotate) */
-.skills-scroller{overflow:hidden;border-radius:12px}
-.skills-track{display:flex;gap:18px;padding:12px 6px;will-change:transform;animation:scroll-left 20s linear infinite}
-.skill-card{min-width:220px;flex:0 0 auto;padding:18px;border-radius:12px;background:linear-gradient(135deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));backdrop-filter: blur(6px);box-shadow:0 10px 30px rgba(2,8,23,0.6)}
-.skill-card h4{margin:0 0 8px}
-.skill-list{display:flex;flex-direction:column;gap:8px}
+        /* Duplicate content inside the container to make the loop seamless */
+        #moving-container > div {
+            width: 50vw; /* Each content group takes half the moving container width */
+            display: flex;
+            flex-wrap: nowrap;
+        }
 
-@keyframes scroll-left{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-50%)}
-}
+        /* General Section Styling */
+        section {
+            min-width: 500px; /* Ensure sections have minimum space */
+            padding: 50px;
+            background-color: var(--background-card);
+            margin: 0 10px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            box-sizing: border-box;
+            height: 85vh; /* Set height for visual impressiveness */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-/* CERTIFICATIONS: static list like earlier (no rotate) */
-.cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.cert-item{padding:14px;border-radius:12px;background:linear-gradient(90deg,rgba(255,255,255,0.015),transparent)}
-.cert-item .badge{display:inline-block;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);font-weight:700;margin-bottom:8px}
+        section h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
 
-/* CONTACT: 4 in a row, responsive to 2x2 */
-.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.contact-item{padding:14px;border-radius:12px;background:rgba(255,255,255,0.02);text-align:center;font-weight:700}
-.contact-item small{display:block;color:var(--muted);font-weight:600;margin-top:6px}
+        /* --- Section Specific Styling --- */
 
-/* Footer */
-footer{padding:14px 28px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid rgba(255,255,255,0.02)}
+        /* About Section */
+        #about img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 5px solid var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
 
-/* Responsive */
-@media (max-width:1000px){
-  #education{grid-template-columns:repeat(2,1fr)}
-  .cert-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media (max-width:700px){
-  .nav{display:none}
-  .container{padding:12px}
-  #education{grid-template-columns:1fr}
-  .cert-grid{grid-template-columns:1fr}
-  .contact-grid{grid-template-columns:repeat(2,1fr)}
-  .skills-track{animation-duration:28s}
-}
+        /* Skills Section */
+        .skill-group {
+            margin-bottom: 25px;
+        }
+        .skill-group h3 {
+            color: var(--text-dark);
+            font-size: 1.2em;
+            margin-top: 15px;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 15px;
+        }
 
-  </style>
+        .skill-group ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-group li {
+            background: #e0eaff;
+            color: var(--primary-color);
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .skill-group li:hover {
+             transform: translateY(-3px);
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Contact Section */
+        #contact .social-links a {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        #contact .social-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--text-dark);
+            color: var(--background-card);
+            position: relative;
+            z-index: 100;
+        }
+
+        /* --- Small Screen/Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 10px 3%;
+                text-align: center;
+            }
+
+            nav {
+                margin-top: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav a {
+                margin: 5px 8px;
+                font-size: 0.85em;
+            }
+
+            /* Stop the continuous horizontal move on small screens */
+            #moving-container {
+                animation: none;
+                flex-direction: column; /* Stack sections vertically */
+                width: 100vw;
+            }
+            
+            #moving-container > div {
+                 width: 100vw;
+                 flex-direction: column;
+            }
+
+            section {
+                min-width: 100%;
+                margin: 10px 0;
+                padding: 30px 20px;
+                height: auto; /* Allow sections to adjust height */
+            }
+            
+            .animation-wrapper {
+                 padding-top: 130px; /* Adjust for taller header */
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo-svg" aria-hidden="true">
-        <!-- Inline SVG creative logo with initials -->
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
-              <stop offset="0" stop-color="#7c3aed" />
-              <stop offset="1" stop-color="#06b6d4" />
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0" width="100" height="100" rx="18" fill="url(#g1)" />
-          <text x="50" y="58" text-anchor="middle" font-family="Space Grotesk, Inter" font-weight="700" font-size="34" fill="rgba(255,255,255,0.95)">LSM</text>
-        </svg>
-      </div>
-      <div>
-        <h1>LATHESH S M</h1>
-        <small>Creative developer</small>
-      </div>
-    </div><nav class="nav" aria-label="Primary navigation">
-  <a href="#about">About</a>
-  <a href="#education">Education</a>
-  <a href="#skills">Skills</a>
-  <a href="#certs">Certifications</a>
-  <a href="#contact">Contact</a>
-</nav>
 
-  </header>  <main class="container">
-    <!-- ABOUT (first) -->
-    <section id="about" class="card">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
-        <div class="profile-wrap"><img src="profile.jpg" alt="Lathesh Profile"></div>
-        <p style="font-weight:700;margin:0">About</p>
-        <p class="about-short">I'm a frontend developer focused on building accessible and performant web interfaces. I enjoy algorithms, system design basics, and learning cloud technologies.</p>
-      </div>
-    </section><!-- EDUCATION -->
-<section id="education" class="card">
-  <h3>Education</h3>
-  <div class="edu-grid" style="margin-top:12px;">
-    <div id="edu-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-      <div class="edu-card"><h4>10th</h4><p>School Name • Year</p></div>
-      <div class="edu-card"><h4>Diploma</h4><p>College Name • Year</p></div>
-      <div class="edu-card"><h4>Engineering</h4><p>University Name • Year</p></div>
+    <header>
+        <a href="#" class="logo">MyName Creative Logo</a>
+        <nav>
+            <a href="javascript:void(0)" onclick="smoothScroll('about')">About</a>
+            <a href="javascript:void(0)" onclick="smoothScroll('education')">Education</a>
+            <a href="javascript:void(0)" onclick="smoothScroll('skills')">Skills</a>
+            <a href="javascript:void(0)" onclick="smoothScroll('certification')">Certification</a>
+            <a href="javascript:void(0)" onclick="smoothScroll('contact')">Contact</a>
+        </nav>
+    </header>
+
+    <div class="animation-wrapper">
+        <div id="moving-container">
+            <div>
+                <section id="about">
+                    <h2>👋 About Me</h2>
+                    <img src="https://via.placeholder.com/160x160?text=Profile+Photo" alt="Profile Photo">
+                    <p><strong>Small Intro:</strong> I am a highly motivated and versatile Software Engineer specializing in Python, Java, and AWS cloud solutions. My mission is to build scalable, efficient, and visually appealing web applications, transforming complex challenges into elegant code. Dedicated to continuous learning and open-source contributions.</p>
+                </section>
+
+                <section id="education">
+                    <h2>🎓 Education</h2>
+                    <ul>
+                        <li>
+                            <h3>B.Tech in Computer Science & Engineering</h3>
+                            <p>Major University Name | 20XX - 20XX</p>
+                        </li>
+                        <li>
+                            <h3>Diploma in Electrical Engineering</h3>
+                            <p>Government Polytechnic College | 20XX</p>
+                        </li>
+                        <li>
+                            <h3>10th Standard (SSC)</h3>
+                            <p>Board/School Name | 20XX</p>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="skills">
+                    <h2>🛠️ Skills</h2>
+                    <div class="skill-group">
+                        <h3>Programming Languages</h3>
+                        <ul>
+                            <li>Python</li>
+                            <li>Java</li>
+                            <li>C</li>
+                            <li>SQL</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group">
+                        <h3>Cloud & Version Control</h3>
+                        <ul>
+                            <li>AWS</li>
+                            <li>Cloud Computing</li>
+                            <li>GitHub</li>
+                            <li>Git</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group">
+                        <h3>Web Technologies</h3>
+                        <ul>
+                            <li>HTML5</li>
+                            <li>CSS3 (SASS/LESS)</li>
+                            <li>JavaScript (React/Node.js)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="certification">
+                    <h2>🏅 Certification</h2>
+                    <ul>
+                        <li>
+                            <h3>AWS Certified Cloud Practitioner</h3>
+                            <p>Certified by Amazon Web Services</p>
+                        </li>
+                        <li>
+                            <h3>Data Mining and Warehousing Specialist</h3>
+                            <p>From XYZ Data Academy</p>
+                        </li>
+                        <li>
+                            <h3>NPTEL Certification: Introduction to Social Networks</h3>
+                            <p>Issued by IIT/NPTEL</p>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="contact">
+                    <h2>📞 Contact</h2>
+                    <div class="social-links">
+                        <a href="tel:+919876543210" target="_blank">📞 +91 98765 43210 (Phone)</a>
+                        <a href="mailto:your.professional.email@gmail.com" target="_blank">📧 your.professional.email@gmail.com (Gmail)</a>
+                        <a href="https://github.com/yourusername" target="_blank">💻 GitHub Profile</a>
+                        <a href="https://linkedin.com/in/yourprofile" target="_blank">🔗 LinkedIn Profile</a>
+                    </div>
+                    <p>Let's connect and build something great together!</p>
+                </section>
+            </div>
+            
+            <div>
+                <section id="about-copy">
+                    <h2>👋 About Me (Copy)</h2>
+                    <p>See first section for details. This is for visual loop continuity.</p>
+                </section>
+
+                <section id="education-copy">
+                    <h2>🎓 Education (Copy)</h2>
+                     <p>See first section for details. This is for visual loop continuity.</p>
+                </section>
+
+                <section id="skills-copy">
+                    <h2>🛠️ Skills (Copy)</h2>
+                     <p>See first section for details. This is for visual loop continuity.</p>
+                </section>
+
+                <section id="certification-copy">
+                    <h2>🏅 Certification (Copy)</h2>
+                     <p>See first section for details. This is for visual loop continuity.</p>
+                </section>
+
+                <section id="contact-copy">
+                    <h2>📞 Contact (Copy)</h2>
+                     <p>See first section for details. This is for visual loop continuity.</p>
+                </section>
+            </div>
+        </div>
     </div>
-  </div>
-</section>
 
-<!-- SKILLS -->
-<section id="skills" class="card">
-  <h3>Skills</h3>
-  <div class="skills-scroller" style="margin-top:12px">
-    <div class="skills-track" aria-hidden="false">
-      <div style="display:flex;gap:18px">
-        <div class="skill-card">
-          <h4>Programming</h4>
-          <div class="skill-list"><div>C — Advanced</div><div>Java — Intermediate</div><div>Python — Advanced</div></div>
-        </div>
+    <footer>
+        &copy; 2024 Your Name. All rights reserved. | Built with HTML & CSS.
+    </footer>
 
-        <div class="skill-card">
-          <h4>Web</h4>
-          <div class="skill-list"><div>HTML — Expert</div><div>CSS — Advanced</div><div>JavaScript — Advanced</div></div>
-        </div>
+    <script>
+        function smoothScroll(targetId) {
+            // Find the first instance of the section with the target ID
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                // If on desktop (animation is running), scrolling is complex, so we'll just focus on mobile/vertical view
+                const isMobile = window.innerWidth <= 768;
 
-        <div class="skill-card">
-          <h4>Cloud & Tools</h4>
-          <div class="skill-list"><div>AWS — Learning</div><div>Git & GitHub — Proficient</div><div>Data Eng — Beginner</div></div>
-        </div>
+                if (isMobile) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    // For the continuous scroll, standard anchor links might break the visual.
+                    // On desktop, the user should be able to scroll to see the moving content.
+                    // We'll rely on the movement and simply return for desktop to prevent janky jumps.
+                    // If you wanted an instant jump, you would need complex JS to calculate the position in the moving container.
+                    alert('Please use the horizontal scroll to view sections while the animation is active.');
+                }
+            }
+        }
+    </script>
 
-        <div class="skill-card">
-          <h4>Other</h4>
-          <div class="skill-list"><div>Linux • Shell</div><div>DB basics • SQL</div><div>REST APIs</div></div>
-        </div>
-      </div>
-
-      <!-- repeated for smooth loop -->
-      <div style="display:flex;gap:18px">
-        <div class="skill-card">
-          <h4>Programming</h4>
-          <div class="skill-list"><div>C — Advanced</div><div>Java — Intermediate</div><div>Python — Advanced</div></div>
-        </div>
-
-        <div class="skill-card">
-          <h4>Web</h4>
-          <div class="skill-list"><div>HTML — Expert</div><div>CSS — Advanced</div><div>JavaScript — Advanced</div></div>
-        </div>
-
-        <div class="skill-card">
-          <h4>Cloud & Tools</h4>
-          <div class="skill-list"><div>AWS — Learning</div><div>Git & GitHub — Proficient</div><div>Data Eng — Beginner</div></div>
-        </div>
-
-        <div class="skill-card">
-          <h4>Other</h4>
-          <div class="skill-list"><div>Linux • Shell</div><div>DB basics • SQL</div><div>REST APIs</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CERTIFICATIONS (static list) -->
-<section id="certs" class="card">
-  <h3>Certifications</h3>
-  <div class="cert-grid" style="margin-top:12px">
-    <div class="cert-item"><div class="badge">Cloud</div><div style="font-weight:700;margin-top:6px">Cloud Computing — Certificate</div><div style="font-size:13px;color:var(--muted)">Provider • 2024</div></div>
-    <div class="cert-item"><div class="badge">Data</div><div style="font-weight:700;margin-top:6px">Data Mining & Warehouse — Certificate</div><div style="font-size:13px;color:var(--muted)">Provider • 2023</div></div>
-    <div class="cert-item"><div class="badge">NPTEL</div><div style="font-weight:700;margin-top:6px">NPTEL Course — Certificate</div><div style="font-size:13px;color:var(--muted)">NPTEL • 2022</div></div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="card">
-  <h3>Contact</h3>
-  <div class="contact-grid" style="margin-top:12px">
-    <a class="contact-item" href="tel:+911234567890">Phone<small>+91 12345 67890</small></a>
-    <a class="contact-item" href="mailto:lathesh@example.com">Email<small>lathesh@example.com</small></a>
-    <a class="contact-item" href="https://github.com/lathesh" target="_blank" rel="noopener noreferrer">GitHub<small>github.com/lathesh</small></a>
-    <a class="contact-item" href="https://www.linkedin.com/in/lathesh" target="_blank" rel="noopener noreferrer">LinkedIn<small>linkedin.com/in/lathesh</small></a>
-  </div>
-</section>
-
-  </main>  <footer>
-    © <span id="year"></span> LATHESH S M • All rights reserved. Designed & built by Lathesh.
-  </footer>  <script>
-    // set copyright year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Pause scrolling on hover for accessibility
-    const track = document.querySelector('.skills-track');
-    if(track){
-      track.addEventListener('mouseenter',()=>track.style.animationPlayState='paused');
-      track.addEventListener('mouseleave',()=>track.style.animationPlayState='running');
-    }
-
-    // Smooth nav scrolling
-    document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
-      e.preventDefault(); const id = a.getAttribute('href'); document.querySelector(id).scrollIntoView({behavior:'smooth',block:'center'});
-    }));
-  </script></body>
-                                    </html>
+</body>
+                  </html>
+  
