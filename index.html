@@ -1,393 +1,1142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative Professional Portfolio</title>
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LATHESH S M | Portfolio</title>
+
+    <!-- Google Font (optional, needs internet) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
     <style>
-        /* --- General Reset & Styling --- */
         :root {
-            --primary-color: #4A90E2; /* Blue */
-            --secondary-color: #FF9800; /* Orange */
-            --background-light: #f4f4f9;
-            --background-card: #ffffff;
-            --text-dark: #333;
+            --bg-main: #050814;
+            --bg-elevated: rgba(15, 23, 42, 0.85);
+            --accent1: #4f46e5; /* indigo */
+            --accent2: #ec4899; /* pink */
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border-soft: rgba(148, 163, 184, 0.3);
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+            --radius-lg: 18px;
+            --radius-xl: 999px;
+            --transition-fast: 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-dark);
-            overflow-x: hidden; /* Crucial to hide the excess content during animation */
-            scroll-behavior: smooth;
+            font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
+            color: var(--text-main);
+            line-height: 1.6;
         }
-        
-        /* --- Header (Fixed Navigation) --- */
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+
         header {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.98), rgba(2, 6, 23, 0.5), transparent);
+            backdrop-filter: blur(14px);
+        }
+
+        .nav-container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0.8rem 1.5rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 15px 5%;
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            justify-content: space-between;
         }
 
         .logo {
-            font-size: 1.8em;
-            font-weight: 800;
-            color: var(--primary-color); 
-            letter-spacing: 1px;
-            text-decoration: none;
-        }
-
-        nav a {
-            margin-left: 25px;
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            padding: 8px 12px;
-            transition: color 0.3s, background-color 0.3s, border-radius 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--background-card);
-            background-color: var(--primary-color);
-            border-radius: 6px;
-        }
-
-        /* --- Continuous Horizontal Movement --- */
-        
-        /* Define the duration and type of the animation */
-        @keyframes scroll-motion {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Scrolls half the content */
-        }
-
-        .animation-wrapper {
-            /* Adjust padding-top to account for the fixed header height */
-            padding-top: 80px; 
-            overflow: hidden;
-            width: 100vw;
-        }
-
-        #moving-container {
-            /* Total width: 2x the content so it can seamlessly loop */
-            width: 200vw; 
             display: flex;
-            flex-wrap: nowrap; /* Keep all sections on one line */
-            animation: scroll-motion 100s linear infinite; /* 100s = speed */
+            align-items: center;
+            gap: 0.6rem;
         }
 
-        /* Duplicate content inside the container to make the loop seamless */
-        #moving-container > div {
-            width: 50vw; /* Each content group takes half the moving container width */
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: conic-gradient(from 130deg, var(--accent1), var(--accent2), #22d3ee, var(--accent1));
             display: flex;
-            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px rgba(79, 70, 229, 0.7);
         }
 
-        /* General Section Styling */
-        section {
-            min-width: 500px; /* Ensure sections have minimum space */
-            padding: 50px;
-            background-color: var(--background-card);
-            margin: 0 10px;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-            box-sizing: border-box;
-            height: 85vh; /* Set height for visual impressiveness */
+        .logo-mark span {
+            font-weight: 700;
+            color: #0b1120;
+        }
+
+        .logo-text {
             display: flex;
             flex-direction: column;
+        }
+
+        .logo-text .name {
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            font-size: 0.98rem;
+        }
+
+        .logo-text .role {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav ul li a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            position: relative;
+            padding-bottom: 0.2rem;
+            transition: color var(--transition-fast);
+        }
+
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(to right, var(--accent1), var(--accent2));
+            transition: width var(--transition-fast);
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #f9fafb;
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        /* Mobile nav toggle (hidden on desktop) */
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            border-radius: 999px;
+            background: #e5e7eb;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: absolute;
+                top: 100%;
+                right: 1.5rem;
+                background: rgba(15, 23, 42, 0.97);
+                border-radius: 18px;
+                box-shadow: var(--shadow-soft);
+                padding: 1rem 1.3rem;
+                flex-direction: column;
+                gap: 0.8rem;
+                transform: translateY(-8px);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity var(--transition-fast), transform var(--transition-fast);
+            }
+
+            nav ul.open {
+                opacity: 1;
+                transform: translateY(8px);
+                pointer-events: auto;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+        }
+
+        /* SECTIONS GENERAL */
+
+        main {
+            padding-top: 80px; /* to avoid navbar overlap */
+        }
+
+        section {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        /* HERO / HOME */
+
+        .hero {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
             justify-content: center;
         }
 
-        section h2 {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--secondary-color);
-            padding-bottom: 15px;
-            margin-bottom: 30px;
-            font-size: 2em;
+        .hero-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.4rem;
+            position: relative;
         }
 
-        /* --- Section Specific Styling --- */
+        .hero-glow {
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.55), transparent 60%);
+            filter: blur(4px);
+            top: -60px;
+            z-index: -2;
+            opacity: 0.85;
+        }
 
-        /* About Section */
-        #about img {
+        .hero-ring {
             width: 160px;
             height: 160px;
             border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border: 5px solid var(--primary-color);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Skills Section */
-        .skill-group {
-            margin-bottom: 25px;
-        }
-        .skill-group h3 {
-            color: var(--text-dark);
-            font-size: 1.2em;
-            margin-top: 15px;
-            border-left: 4px solid var(--secondary-color);
-            padding-left: 15px;
-        }
-
-        .skill-group ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skill-group li {
-            background: #e0eaff;
-            color: var(--primary-color);
-            padding: 10px 18px;
-            border-radius: 25px;
-            font-size: 0.95em;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-        .skill-group li:hover {
-             transform: translateY(-3px);
-             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Contact Section */
-        #contact .social-links a {
+            background: conic-gradient(from 220deg, var(--accent1), var(--accent2), #22d3ee, var(--accent1));
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 1.1em;
+            justify-content: center;
+            padding: 4px;
+            box-shadow: 0 0 40px rgba(79, 70, 229, 0.9);
+            animation: spin-slow 14s linear infinite;
+        }
+
+        .hero-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 20% 0%, #1f2937, #020617);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #f9fafb;
+        }
+
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-kicker {
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .hero-name {
+            font-size: clamp(2rem, 3.2vw, 2.8rem);
+            font-weight: 700;
+        }
+
+        .hero-role {
+            font-size: 1rem;
             font-weight: 500;
-            transition: color 0.3s;
+            background: linear-gradient(to right, #c4b5fd, #f9a8d4);
+            -webkit-background-clip: text;
+            color: transparent;
         }
 
-        #contact .social-links a:hover {
-            color: var(--secondary-color);
+        .hero-text {
+            max-width: 580px;
+            font-size: 0.96rem;
+            color: var(--text-muted);
         }
 
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--text-dark);
-            color: var(--background-card);
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            justify-content: center;
+            margin-top: 0.4rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.7rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            box-shadow: 0 18px 40px rgba(76, 29, 149, 0.85);
+            color: #f9fafb;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(79, 70, 229, 0.95);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--border-soft);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(15, 23, 42, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.85);
+        }
+
+        .btn-icon {
+            margin-left: 0.4rem;
+            font-size: 1.1rem;
+        }
+
+        /* ABOUT */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.2fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .about-text p + p {
+            margin-top: 1rem;
+        }
+
+        .about-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.75));
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+            padding: 1.6rem 1.5rem;
+            display: grid;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+        }
+
+        .about-card-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+
+        .about-card-label {
+            color: var(--text-muted);
+        }
+
+        .about-card-value {
+            font-weight: 500;
+        }
+
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* EDUCATION (TIMELINE) */
+
+        .timeline {
             position: relative;
-            z-index: 100;
+            margin-top: 1.5rem;
+            padding-left: 1.4rem;
         }
 
-        /* --- Small Screen/Mobile Responsiveness --- */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 10px 3%;
-                text-align: center;
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 0.45rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent1), var(--accent2));
+            opacity: 0.7;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.7rem;
+            padding-left: 1.4rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -0.1rem;
+            top: 0.25rem;
+            width: 0.85rem;
+            height: 0.85rem;
+            border-radius: 50%;
+            border: 2px solid #111827;
+            background: radial-gradient(circle, #e5e7eb, var(--accent1));
+            box-shadow: 0 0 10px rgba(79, 70, 229, 0.9);
+        }
+
+        .timeline-card {
+            background: rgba(15, 23, 42, 0.92);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-soft);
+            padding: 1rem 1.1rem;
+            box-shadow: 0 8px 28px rgba(15, 23, 42, 0.9);
+        }
+
+        .timeline-degree {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline-institute {
+            font-size: 0.9rem;
+            color: #cbd5f5;
+        }
+
+        .timeline-year {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+        }
+
+        /* SKILLS */
+
+        .skills-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr);
+            gap: 2.5rem;
+            align-items: flex-start;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+
+        .skill-card {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-soft);
+            padding: 1.1rem 1.2rem;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.9);
+        }
+
+        .skill-card-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .skill-tag {
+            font-size: 0.78rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            color: #e5e7eb;
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        /* Skills marquee (horizontal move animation) */
+
+        .skills-marquee-wrapper {
+            background: radial-gradient(circle at left, rgba(79, 70, 229, 0.35), rgba(15, 23, 42, 0.95));
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(79, 70, 229, 0.55);
+            padding: 1rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.95);
+        }
+
+        .skills-marquee-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .skills-marquee-track {
+            display: inline-flex;
+            gap: 0.7rem;
+            animation: skills-scroll 20s linear infinite;
+            will-change: transform;
+        }
+
+        .skills-pill {
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(191, 219, 254, 0.6);
+            box-shadow: 0 0 10px rgba(129, 140, 248, 0.7);
+            white-space: nowrap;
+        }
+
+        .skills-marquee-inner {
+            display: flex;
+            width: max-content;
+        }
+
+        @keyframes skills-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .skills-marquee-wrapper:hover .skills-marquee-track {
+            animation-play-state: paused;
+        }
+
+        @media (max-width: 900px) {
+            .skills-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* CERTIFICATIONS */
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-card {
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            padding: 1.15rem 1.1rem;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.95);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(76, 29, 149, 0.9);
+            border-color: rgba(129, 140, 248, 0.85);
+        }
+
+        .cert-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .cert-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.45rem;
+        }
+
+        .cert-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 900px) {
+            .cert-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* CONTACT */
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+            gap: 2.2rem;
+            align-items: flex-start;
+        }
+
+        .contact-card {
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-soft);
+            padding: 1.4rem 1.3rem;
+            box-shadow: var(--shadow-soft);
+            font-size: 0.9rem;
+        }
+
+        .contact-item + .contact-item {
+            margin-top: 0.7rem;
+        }
+
+        .contact-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+        }
+
+        .contact-value {
+            font-size: 0.95rem;
+        }
+
+        .contact-form {
+            background: rgba(15, 23, 42, 0.97);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-soft);
+            padding: 1.5rem 1.4rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-muted);
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.55rem 0.75rem;
+            border-radius: 10px;
+            border: 1px solid rgba(55, 65, 81, 0.9);
+            background: rgba(15, 23, 42, 0.96);
+            color: var(--text-main);
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: rgba(129, 140, 248, 0.9);
+            box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.8);
+            background: rgba(15, 23, 42, 0.98);
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        @media (max-width: 900px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
             }
 
-            nav {
-                margin-top: 10px;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
+            .form-row {
+                grid-template-columns: 1fr;
             }
+        }
 
-            nav a {
-                margin: 5px 8px;
-                font-size: 0.85em;
-            }
+        /* FOOTER */
 
-            /* Stop the continuous horizontal move on small screens */
-            #moving-container {
-                animation: none;
-                flex-direction: column; /* Stack sections vertically */
-                width: 100vw;
-            }
-            
-            #moving-container > div {
-                 width: 100vw;
-                 flex-direction: column;
-            }
+        footer {
+            border-top: 1px solid rgba(31, 41, 55, 0.9);
+            background: #020617;
+        }
 
-            section {
-                min-width: 100%;
-                margin: 10px 0;
-                padding: 30px 20px;
-                height: auto; /* Allow sections to adjust height */
-            }
-            
-            .animation-wrapper {
-                 padding-top: 130px; /* Adjust for taller header */
+        .footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 1.4rem 1.5rem 1.6rem;
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .footer-inner span {
+            color: #e5e7eb;
+        }
+
+        /* SMALL ANIMATION UTILITIES (for “fade in” on load) */
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(14px);
+            animation: fadeUp 0.7s ease forwards;
+        }
+
+        .fade-up.delay-1 { animation-delay: 0.1s; }
+        .fade-up.delay-2 { animation-delay: 0.2s; }
+        .fade-up.delay-3 { animation-delay: 0.3s; }
+        .fade-up.delay-4 { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- HEADER / NAVBAR -->
     <header>
-        <a href="#" class="logo">MyName Creative Logo</a>
-        <nav>
-            <a href="javascript:void(0)" onclick="smoothScroll('about')">About</a>
-            <a href="javascript:void(0)" onclick="smoothScroll('education')">Education</a>
-            <a href="javascript:void(0)" onclick="smoothScroll('skills')">Skills</a>
-            <a href="javascript:void(0)" onclick="smoothScroll('certification')">Certification</a>
-            <a href="javascript:void(0)" onclick="smoothScroll('contact')">Contact</a>
-        </nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-mark">
+                    <span>LS</span>
+                </div>
+                <div class="logo-text">
+                    <span class="name">LATHESH S M</span>
+                    <span class="role">CSE Student</span>
+                </div>
+            </div>
+
+            <nav>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul id="navLinks">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#certification">Certification</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <div class="animation-wrapper">
-        <div id="moving-container">
-            <div>
-                <section id="about">
-                    <h2>👋 About Me</h2>
-                    <img src="https://via.placeholder.com/160x160?text=Profile+Photo" alt="Profile Photo">
-                    <p><strong>Small Intro:</strong> I am a highly motivated and versatile Software Engineer specializing in Python, Java, and AWS cloud solutions. My mission is to build scalable, efficient, and visually appealing web applications, transforming complex challenges into elegant code. Dedicated to continuous learning and open-source contributions.</p>
-                </section>
+    <main>
+        <!-- HOME / HERO -->
+        <section id="home" class="hero">
+            <div class="hero-inner">
+                <div class="hero-glow"></div>
 
-                <section id="education">
-                    <h2>🎓 Education</h2>
-                    <ul>
-                        <li>
-                            <h3>B.Tech in Computer Science & Engineering</h3>
-                            <p>Major University Name | 20XX - 20XX</p>
-                        </li>
-                        <li>
-                            <h3>Diploma in Electrical Engineering</h3>
-                            <p>Government Polytechnic College | 20XX</p>
-                        </li>
-                        <li>
-                            <h3>10th Standard (SSC)</h3>
-                            <p>Board/School Name | 20XX</p>
-                        </li>
-                    </ul>
-                </section>
+                <div class="hero-ring fade-up">
+                    <!-- You can replace initials with your photo using <img> -->
+                    <div class="hero-avatar">
+                        LS
+                    </div>
+                </div>
 
-                <section id="skills">
-                    <h2>🛠️ Skills</h2>
-                    <div class="skill-group">
-                        <h3>Programming Languages</h3>
-                        <ul>
-                            <li>Python</li>
-                            <li>Java</li>
-                            <li>C</li>
-                            <li>SQL</li>
-                        </ul>
-                    </div>
-                    <div class="skill-group">
-                        <h3>Cloud & Version Control</h3>
-                        <ul>
-                            <li>AWS</li>
-                            <li>Cloud Computing</li>
-                            <li>GitHub</li>
-                            <li>Git</li>
-                        </ul>
-                    </div>
-                    <div class="skill-group">
-                        <h3>Web Technologies</h3>
-                        <ul>
-                            <li>HTML5</li>
-                            <li>CSS3 (SASS/LESS)</li>
-                            <li>JavaScript (React/Node.js)</li>
-                        </ul>
-                    </div>
-                </section>
+                <div class="fade-up delay-1 hero-kicker">Hello, I'm</div>
+                <h1 class="fade-up delay-2 hero-name">LATHESH S M</h1>
+                <p class="fade-up delay-3 hero-role">Computer Science Engineering Student</p>
 
-                <section id="certification">
-                    <h2>🏅 Certification</h2>
-                    <ul>
-                        <li>
-                            <h3>AWS Certified Cloud Practitioner</h3>
-                            <p>Certified by Amazon Web Services</p>
-                        </li>
-                        <li>
-                            <h3>Data Mining and Warehousing Specialist</h3>
-                            <p>From XYZ Data Academy</p>
-                        </li>
-                        <li>
-                            <h3>NPTEL Certification: Introduction to Social Networks</h3>
-                            <p>Issued by IIT/NPTEL</p>
-                        </li>
-                    </ul>
-                </section>
+                <p class="fade-up delay-4 hero-text">
+                    I’m a CSE student passionate about web development, problem solving and modern technologies.
+                    I enjoy creating interactive, responsive interfaces and writing clean, maintainable code.
+                </p>
 
-                <section id="contact">
-                    <h2>📞 Contact</h2>
-                    <div class="social-links">
-                        <a href="tel:+919876543210" target="_blank">📞 +91 98765 43210 (Phone)</a>
-                        <a href="mailto:your.professional.email@gmail.com" target="_blank">📧 your.professional.email@gmail.com (Gmail)</a>
-                        <a href="https://github.com/yourusername" target="_blank">💻 GitHub Profile</a>
-                        <a href="https://linkedin.com/in/yourprofile" target="_blank">🔗 LinkedIn Profile</a>
-                    </div>
-                    <p>Let's connect and build something great together!</p>
-                </section>
+                <div class="fade-up delay-4 hero-actions">
+                    <!-- Download Resume button ONLY here in Home section -->
+                    <a href="resume.pdf" class="btn btn-primary" download>
+                        Download Resume
+                        <span class="btn-icon">⬇</span>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        Contact Me
+                    </a>
+                </div>
             </div>
-            
-            <div>
-                <section id="about-copy">
-                    <h2>👋 About Me (Copy)</h2>
-                    <p>See first section for details. This is for visual loop continuity.</p>
-                </section>
+        </section>
 
-                <section id="education-copy">
-                    <h2>🎓 Education (Copy)</h2>
-                     <p>See first section for details. This is for visual loop continuity.</p>
-                </section>
+        <!-- ABOUT -->
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">A quick introduction</p>
 
-                <section id="skills-copy">
-                    <h2>🛠️ Skills (Copy)</h2>
-                     <p>See first section for details. This is for visual loop continuity.</p>
-                </section>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        I am a Computer Science Engineering student with a strong interest in web development,
+                        programming and building user-friendly applications. I love experimenting with new tools and
+                        technologies, and turning ideas into real working projects.
+                    </p>
+                    <p>
+                        I enjoy solving problems, working in teams and continuously improving my skills. My goal is
+                        to grow as a software developer and contribute to meaningful, impactful projects.
+                    </p>
+                </div>
 
-                <section id="certification-copy">
-                    <h2>🏅 Certification (Copy)</h2>
-                     <p>See first section for details. This is for visual loop continuity.</p>
-                </section>
-
-                <section id="contact-copy">
-                    <h2>📞 Contact (Copy)</h2>
-                     <p>See first section for details. This is for visual loop continuity.</p>
-                </section>
+                <div class="about-card">
+                    <div class="about-card-row">
+                        <span class="about-card-label">Name</span>
+                        <span class="about-card-value">LATHESH S M</span>
+                    </div>
+                    <div class="about-card-row">
+                        <span class="about-card-label">Branch</span>
+                        <span class="about-card-value">B.E – Computer Science Engineering</span>
+                    </div>
+                    <div class="about-card-row">
+                        <span class="about-card-label">College</span>
+                        <span class="about-card-value">Your College Name</span>
+                    </div>
+                    <div class="about-card-row">
+                        <span class="about-card-label">Location</span>
+                        <span class="about-card-value">Your City, India</span>
+                    </div>
+                    <div class="about-card-row">
+                        <span class="about-card-label">Interests</span>
+                        <span class="about-card-value">Web Dev, UI, Problem Solving</span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
 
+        <!-- EDUCATION -->
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <p class="section-subtitle">My academic journey</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-degree">B.E – Computer Science Engineering</div>
+                        <div class="timeline-institute">Your College Name</div>
+                        <div class="timeline-year">2023 – Present</div>
+                        <div class="timeline-desc">
+                            Currently pursuing CSE with focus on Data Structures, Algorithms, Database Management,
+                            Operating Systems and Web Technologies.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-degree">PUC / 12th / Diploma</div>
+                        <div class="timeline-institute">Your Institution Name</div>
+                        <div class="timeline-year">Year of Completion</div>
+                        <div class="timeline-desc">
+                            Completed higher secondary with strong foundation in Mathematics, Physics and Computer Science.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-degree">SSLC / 10th Standard</div>
+                        <div class="timeline-institute">Your School Name</div>
+                        <div class="timeline-year">Year of Completion</div>
+                        <div class="timeline-desc">
+                            Completed schooling with interest in science and basic computer concepts, leading towards CSE.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills">
+            <h2 class="section-title">Skills</h2>
+            <p class="section-subtitle">Technical and personal skill set</p>
+
+            <div class="skills-layout">
+                <!-- Left: static skill cards -->
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-card-title">Programming Languages</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">C</span>
+                            <span class="skill-tag">C++</span>
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">Python</span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-card-title">Web Technologies</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">Responsive Design</span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-card-title">Tools & Concepts</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Git & GitHub</span>
+                            <span class="skill-tag">VS Code</span>
+                            <span class="skill-tag">DBMS Basics</span>
+                            <span class="skill-tag">OOP Concepts</span>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-card-title">Soft Skills</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Teamwork</span>
+                            <span class="skill-tag">Communication</span>
+                            <span class="skill-tag">Problem Solving</span>
+                            <span class="skill-tag">Time Management</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: horizontal moving animation of skills -->
+                <div class="skills-marquee-wrapper">
+                    <div class="skills-marquee-label">Highlighted Skills</div>
+                    <div class="skills-marquee-inner">
+                        <!-- We duplicate the same set so it loops smoothly -->
+                        <div class="skills-marquee-track">
+                            <span class="skills-pill">C Programming</span>
+                            <span class="skills-pill">C++</span>
+                            <span class="skills-pill">Java</span>
+                            <span class="skills-pill">Python</span>
+                            <span class="skills-pill">HTML</span>
+                            <span class="skills-pill">CSS</span>
+                            <span class="skills-pill">JavaScript</span>
+                            <span class="skills-pill">Responsive Design</span>
+                            <span class="skills-pill">DBMS Basics</span>
+                            <span class="skills-pill">OOP Concepts</span>
+                            <span class="skills-pill">Teamwork</span>
+                            <span class="skills-pill">Problem Solving</span>
+
+                            <!-- repeated again for infinite scroll -->
+                            <span class="skills-pill">C Programming</span>
+                            <span class="skills-pill">C++</span>
+                            <span class="skills-pill">Java</span>
+                            <span class="skills-pill">Python</span>
+                            <span class="skills-pill">HTML</span>
+                            <span class="skills-pill">CSS</span>
+                            <span class="skills-pill">JavaScript</span>
+                            <span class="skills-pill">Responsive Design</span>
+                            <span class="skills-pill">DBMS Basics</span>
+                            <span class="skills-pill">OOP Concepts</span>
+                            <span class="skills-pill">Teamwork</span>
+                            <span class="skills-pill">Problem Solving</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CERTIFICATION -->
+        <section id="certification">
+            <h2 class="section-title">Certifications</h2>
+            <p class="section-subtitle">Courses and workshops I have completed</p>
+
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-title">Web Development Workshop</div>
+                    <div class="cert-meta">CSE Dept, Your College • 2025</div>
+                    <div class="cert-desc">
+                        Hands-on workshop covering HTML, CSS and basic JavaScript to build responsive websites.
+                    </div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Python Programming Basics</div>
+                    <div class="cert-meta">Online Course • 2024</div>
+                    <div class="cert-desc">
+                        Learned fundamentals of Python, including data types, functions and simple problem solving.
+                    </div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Database Management Intro</div>
+                    <div class="cert-meta">CSE Dept, Your College • 2024</div>
+                    <div class="cert-desc">
+                        Introduction to relational databases, SQL queries and basic schema design concepts.
+                    </div>
+                </div>
+
+                <!-- Add / remove more cards as needed -->
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <h2 class="section-title">Contact</h2>
+            <p class="section-subtitle">Let’s connect</p>
+
+            <div class="contact-layout">
+                <!-- Left: contact info -->
+                <div class="contact-card">
+                    <p>
+                        If you would like to discuss projects, internships or collaborations,
+                        feel free to reach out to me using the details below or the contact form.
+                    </p>
+
+                    <div class="contact-item" style="margin-top: 1rem;">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">youremail@example.com</div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">+91-XXXXXXXXXX</div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-label">LinkedIn</div>
+                        <div class="contact-value">linkedin.com/in/your-profile</div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-label">GitHub</div>
+                        <div class="contact-value">github.com/your-username</div>
+                    </div>
+                </div>
+
+                <!-- Right: contact form -->
+                <form class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input id="name" type="text" placeholder="Enter your name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input id="email" type="email" placeholder="Enter your email" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input id="subject" type="text" placeholder="Enter subject" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="Write your message here"></textarea>
+                    </div>
+
+                    <button type="button" class="btn btn-primary">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
     <footer>
-        &copy; 2024 Your Name. All rights reserved. | Built with HTML & CSS.
+        <div class="footer-inner">
+            <div>© 2025 <span>LATHESH S M</span>. All Rights Reserved.</div>
+            <div>Designed &amp; developed as a portfolio project.</div>
+        </div>
     </footer>
 
+    <!-- SMALL JS: mobile nav + active link highlight -->
     <script>
-        function smoothScroll(targetId) {
-            // Find the first instance of the section with the target ID
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                // If on desktop (animation is running), scrolling is complex, so we'll just focus on mobile/vertical view
-                const isMobile = window.innerWidth <= 768;
+        const navToggle = document.getElementById("navToggle");
+        const navLinks = document.getElementById("navLinks");
+        const linkItems = navLinks.querySelectorAll("a");
 
-                if (isMobile) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    // For the continuous scroll, standard anchor links might break the visual.
-                    // On desktop, the user should be able to scroll to see the moving content.
-                    // We'll rely on the movement and simply return for desktop to prevent janky jumps.
-                    // If you wanted an instant jump, you would need complex JS to calculate the position in the moving container.
-                    alert('Please use the horizontal scroll to view sections while the animation is active.');
+        navToggle.addEventListener("click", () => {
+            navLinks.classList.toggle("open");
+        });
+
+        // Close menu when clicking a link (mobile)
+        linkItems.forEach(link => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("open");
+            });
+        });
+
+        // Active section highlight
+        const sections = document.querySelectorAll("section[id]");
+
+        window.addEventListener("scroll", () => {
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(current => {
+                const sectionHeight = current.offsetHeight;
+                const sectionTop = current.offsetTop - 120;
+                const sectionId = current.getAttribute("id");
+
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    linkItems.forEach(link => {
+                        link.classList.remove("active");
+                        if (link.getAttribute("href") === "#" + sectionId) {
+                            link.classList.add("active");
+                        }
+                    });
                 }
-            }
-        }
+            });
+        });
     </script>
-
 </body>
-                  </html>
-  
+</html>
+                          
