@@ -233,7 +233,7 @@
               <span class="type-cursor" aria-hidden="true"></span>
             </div>
             <p class="hero-text" style="margin-top:0.6rem;">
-              I build clean, interactive web experiences and small projects to practice and learn.
+              I design and develop simple, engaging web applications to enhance my learning.
             </p>
             <div class="hero-actions" style="margin-top:0.7rem;">
               <!-- downloadBtn id added -->
@@ -361,7 +361,7 @@
     <!-- PROJECTS -->
     <section id="projects">
       <h2 class="section-title">Projects</h2>
-      <p class="section-subtitle">A couple of small projects I built — click "View" to open (replace links later).</p>
+      <p class="section-subtitle">A couple of small projects I built.</p>
 
       <div class="cert-grid">
         <div class="cert-card">
@@ -706,17 +706,7 @@
       });
     }
 
-    // -- Download button "Download Again" UI (harmless; does not block download) --
-    const downloadBtn = document.getElementById("downloadBtn");
-    if (downloadBtn) {
-      downloadBtn.addEventListener("click", () => {
-        // do not call preventDefault — we want browser to handle download normally every time
-        setTimeout(() => {
-          // change text for UX but keep link behavior intact
-          downloadBtn.innerHTML = "Download Again <span class='btn-icon'>🔄</span>";
-        }, 700);
-      });
-    }
+    
 
     // End of script
   </script>
