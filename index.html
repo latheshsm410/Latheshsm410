@@ -244,7 +244,7 @@
               I build clean, interactive web experiences and small projects to practice and learn.
             </p>
             <div class="hero-actions" style="margin-top:0.7rem;">
-              <a class="btn btn-primary" id="resumeBtn"  href="Portfolio1.pdf" download>Download Resume <span class="btn-icon">⬇</span></a>
+              <a class="btn btn-primary"  href="Portfolio1.pdf" download>Download Resume <span class="btn-icon">⬇</span></a>
               <a class="btn btn-secondary" href="#contact">Contact Me</a>
             </div>
           </div>
@@ -642,19 +642,7 @@ cards.forEach(card => {
     card.classList.add("active");
   });
 
-    
-  const btn = document.getElementById("resumeBtn");
-
-  // Check if downloaded before
-  if (localStorage.getItem("resumeDownloaded")) {
-    btn.textContent = "Download Again";
-  }
-
-  // When clicked
-  btn.addEventListener("click", function () {
-    localStorage.setItem("resumeDownloaded", "true");
-    btn.textContent = "Download Again";
-  });
+  
 
   </script>
 </body>
