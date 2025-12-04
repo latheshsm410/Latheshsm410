@@ -169,6 +169,17 @@
     footer{border-top:1px solid rgba(31,41,55,0.9);background:#020617;color:var(--text-muted)}
     body.light footer{background:#f9fafb;border-top-color:rgba(148,163,184,0.8)}
     .footer-inner{max-width:1120px;margin:0 auto;padding:1.4rem 1.5rem;text-align:center;font-size:0.78rem}
+
+    .cert-card {
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.cert-card.active,
+.cert-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
   </style>
 </head>
 <body>
@@ -233,7 +244,7 @@
               I build clean, interactive web experiences and small projects to practice and learn.
             </p>
             <div class="hero-actions" style="margin-top:0.7rem;">
-              <a class="btn btn-primary" href="Portfolio1.pdf" download>Download Resume <span class="btn-icon">⬇</span></a>
+              <a class="btn btn-primary" id="resumeBtn"  href="Portfolio1.pdf" download>Download Resume <span class="btn-icon">⬇</span></a>
               <a class="btn btn-secondary" href="#contact">Contact Me</a>
             </div>
           </div>
@@ -621,6 +632,31 @@
       else { document.body.classList.remove('light'); themeToggle.textContent = '🌙'; }
     }
     themeToggle.addEventListener('click', () => { isLight = !isLight; setTheme(isLight); });
+
+    // Certification click effect
+const cards = document.querySelectorAll(".cert-card");
+
+cards.forEach(card => {
+  card.addEventListener("click", () => {
+    cards.forEach(c => c.classList.remove("active"));
+    card.classList.add("active");
+  });
+});
+
+    
+  const btn = document.getElementById("resumeBtn");
+
+  // Check if downloaded before
+  if (localStorage.getItem("resumeDownloaded")) {
+    btn.textContent = "Download Again";
+  }
+
+  // When clicked
+  btn.addEventListener("click", function () {
+    localStorage.setItem("resumeDownloaded", "true");
+    btn.textContent = "Download Again";
+  });
+
   </script>
 </body>
 </html>
